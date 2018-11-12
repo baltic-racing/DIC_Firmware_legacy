@@ -1,0 +1,3 @@
+[submodule "CAN_LIB"]
+	path = CAN_LIB
+	url = ssh://git@raving:10322/Electronics/CAN_LIB.git
