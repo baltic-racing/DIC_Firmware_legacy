@@ -8,7 +8,20 @@ Hardware:
  
 Das Display wird im 8-bit Modus verwendet.
 
-Dies ist das neue Displaylayout:
+Aktuell findet eine Neustrukturierung statt, Status:
+ - [ ] Produktionsdisplay
+   - [x] Kühler
+   - [x] Öltemperatur
+   - [x] Öldruck
+   - [ ] K
+   - [ ] Fehlerlevel
+ - [ ] Debugdisplay
+   - [ ] Bremsdruck
+   - [ ] Bremstemperatur
+   - [x] Öltemperatur
+   - [ ] Sli
+
+Dies ist das neue Displaylayout (20x4):
 ```
 COOL.     125 C  ###
 OEL 1.0 B  25 C  # #
@@ -19,7 +32,10 @@ K=1  E=0         ###
 Zusätzlich ist ein zweite Displaymodus für Testzwecke vorgesehen:
 
 ```
-
+BPFR=  B VB=  . V
+BPRE=  B TPS=   ?
+BTL=   C OiT=   C
+BTR=   C Sli=   ?
 ```
 
 Relevante Dateien:
