@@ -28,7 +28,7 @@ void timer_config(void) {
     //TIMER CONFIG
     TCCR1B |= (1<<CS12) | (1<<CS10) | (1<<WGM12);
     TIMSK1 |= (1<<OCIE1A);
-    //start with a logical high time
+    // start with a logical high time
     OCR1A = 15;
 }
 
@@ -421,6 +421,7 @@ void refresh_break_pressures(uint8_t screen[4][20], int row, int column) {
      *
      * Currently only used on the debugging screen.
      */
+    // I'm not implementing this now, as I'm not sure how it is "filled in"
 }
 
 
@@ -430,7 +431,19 @@ void refresh_break_temperatures(uint8_t screen[4][20], int row, int column) {
      *
      * Currently only used on the debugging screen.
      */
+    // I'm not implementing this now, as I'm not sure how it is "filled in"
 }
+
+
+void refresh_error(uint8_t errlevel, uint8_t screen[4][20], int row, int column) {
+    /*
+     * Refresh the shown error code sent by SWC.
+     *
+     *
+     */
+    screen[row][column] = 0x30 + errlevel;
+}
+
 
 
 void init() {
@@ -490,6 +503,7 @@ int main() {
                 refresh_oil_pressure(CAN_DATA_BYTES[4][4], screen_production, 1, 4);
                 refresh_oil_temperature(CAN_DATA_BYTES[4][3], screen_production, 1, 10);
                 refresh_cooler_temperature(CAN_DATA_BYTES[4]+6, screen_production, 0, 10);
+                refresh_error(CAN_DATA_BYTES[0][8], screen_production, 3, 7);
 
             } else {  // debug
                 screen = &screen_debug;
@@ -497,6 +511,7 @@ int main() {
                 // [6][0] and [6][1]
                 refresh_battery(CAN_DATA_BYTES[6]+1, screen_debug, 0, 12);
                 refresh_oil_temperature(CAN_DATA_BYTES[4][3], screen_debug, 2, 13);
+                //refresh_break_pressures()
             }
 
         }

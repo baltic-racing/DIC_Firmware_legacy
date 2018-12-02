@@ -14,12 +14,13 @@ Aktuell findet eine Neustrukturierung statt, Status:
    - [x] Öltemperatur
    - [x] Öldruck
    - [ ] K
-   - [ ] Fehlerlevel
+   - [x] Fehlerlevel
  - [ ] Debugdisplay
    - [ ] Bremsdruck
    - [ ] Bremstemperatur
+   - [ ] TPS
    - [x] Öltemperatur
-   - [ ] Sli
+   - [ ] Sli (?)
 
 Dies ist das neue Displaylayout (20x4):
 ```
