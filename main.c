@@ -435,13 +435,41 @@ void refresh_break_temperatures(uint8_t screen[4][20], int row, int column) {
 }
 
 
-void refresh_error(uint8_t errlevel, uint8_t screen[4][20], int row, int column) {
+void refresh_error_swc(uint8_t error_level, uint8_t screen[4][20], int row, int column) {
     /*
      * Refresh the shown error code sent by SWC.
      *
-     *
+     * Currently only used on the production screen.
      */
-    screen[row][column] = 0x30 + errlevel;
+    screen[row][column] = 0x30 + error_level;
+}
+
+
+void refresh_tps(uint8_t tps_raw, uint8_t screen[4][20], int row, int column) {
+    /*
+     * Refresh the TPS.
+     * TODO: What is that?
+     *
+     * Currently only used on the debugging screen.
+     */
+    uint8_t tps = tps_raw / 2;
+
+    uint8_t tps_100 = tps / 100;
+    uint8_t tps_001 = tps % 10;
+    uint8_t tps_010 = (tps - tps_001 - tps_100 * 100) / 10;
+
+    if (tps_100 == 0) {
+        screen[row][column] = 0x10;
+    } else {
+        screen[row][column] = 0x30 + tps_100;
+    }
+    if(tps_100 == 0 && tps_010 == 0) {
+        screen[row][column+1] = 0x10;
+    } else {
+        screen[row][column+1] = 0x30 + tps_010;
+    }
+
+    screen[row][column+2] = 0x30+tps_001;
 }
 
 
@@ -475,7 +503,7 @@ int main() {
             {1, CAN_ID_CMC},
             {2, CAN_ID_DATALOGGER_VOLTAGE},
             {3, CAN_ID_DATALOGGER_BREAKPRESSURE},
-            {4, CAN_ID_ECU1},
+            {4, CAN_ID_ECU0},
             {5, CAN_ID_ECU2},
             {6, CAN_ID_ECU4}
     };
@@ -503,7 +531,7 @@ int main() {
                 refresh_oil_pressure(CAN_DATA_BYTES[4][4], screen_production, 1, 4);
                 refresh_oil_temperature(CAN_DATA_BYTES[4][3], screen_production, 1, 10);
                 refresh_cooler_temperature(CAN_DATA_BYTES[4]+6, screen_production, 0, 10);
-                refresh_error(CAN_DATA_BYTES[0][8], screen_production, 3, 7);
+                refresh_error_swc(CAN_DATA_BYTES[0][8], screen_production, 3, 7);
 
             } else {  // debug
                 screen = &screen_debug;
@@ -512,6 +540,7 @@ int main() {
                 refresh_battery(CAN_DATA_BYTES[6]+1, screen_debug, 0, 12);
                 refresh_oil_temperature(CAN_DATA_BYTES[4][3], screen_debug, 2, 13);
                 //refresh_break_pressures()
+                refresh_tps(CAN_DATA_BYTES[4][2], screen_debug, 1, 13)
             }
 
         }

@@ -18,7 +18,7 @@ Aktuell findet eine Neustrukturierung statt, Status:
  - [ ] Debugdisplay
    - [ ] Bremsdruck
    - [ ] Bremstemperatur
-   - [ ] TPS
+   - [x] TPS
    - [x] Öltemperatur
    - [ ] Sli (?)
 
