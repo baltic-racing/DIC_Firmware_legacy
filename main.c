@@ -8,8 +8,16 @@
 
 #include "canlib.c"
 
-uint8_t dsp_data [2][4][20];      // Array in which Data is saved which will be drawn onto the Display
+// Array in which Data is saved which will be drawn onto the Display
+uint8_t dsp_data [2][4][20];
 uint8_t dsp_mde = 1;
+
+
+ISR(TIMER1_COMPA_vect) {
+    draw_data = 1;
+    update_data++;
+}
+
 
 void timer_config(void) {
     /*
@@ -438,12 +446,13 @@ void init() {
 
 
 int main() {
-    init();
     uint8_t * screen[20];
     uint8_t screen_production [4][20];
     uint8_t screen_debug[4][20];
 
     screen = &screen_production;
+
+    init();
 
     dsp_setup_production(screen_production);
     dsp_setup_debug(screen_debug);
@@ -468,10 +477,12 @@ int main() {
             can_multi_rx(can_data);
 
             // change display mode between 'production' and debug
-            dsp_mde = can_data_bytes[1][4]&0b00001000;
+            dsp_mde = can_data_bytes[1][4] & 0b00001000;
+
             if (dsp_mde>1) dsp_mde=1;
 
             if (dsp_mde == 0) {  // production
+                screen = &screen_production;
                 // First byte of SWC data is the gear
                 refresh_gear(CAN_DATA_BYTES[1][0], screen_production);
 
@@ -481,6 +492,7 @@ int main() {
                 refresh_cooler_temperature(CAN_DATA_BYTES[4]+6, screen_production, 0, 10);
 
             } else {  // debug
+                screen = &screen_debug;
                 // Battery bytes are at
                 // [6][0] and [6][1]
                 refresh_battery(CAN_DATA_BYTES[6]+1, screen_debug, 0, 12);
@@ -489,11 +501,7 @@ int main() {
 
         }
 
-        if (counter_update_screen==1) {
-            dsp_write(*screen);
-        }
-
-
+        dsp_write(*screen);
     }
 
 }
