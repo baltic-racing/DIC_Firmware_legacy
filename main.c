@@ -478,6 +478,9 @@ void init() {
     /*
      * Initializes display, can, ports, ...
      */
+    timer_config();
+    sei();  // Enable interrupts on Atmel controllers (e.g. timers)
+
     can_init();
     port_init();
 
