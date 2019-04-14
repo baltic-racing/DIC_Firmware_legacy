@@ -47,3 +47,8 @@ Submodule:
  
 Was ist noch zu tun:
  - Neustrukturierung und _Dokumentierung_ der `dsp_*`-Funktionen
+ 
+ Fuse Settings AT90CAN
+Extended  	0xF7
+High		0x9F
+Low		0xCF
