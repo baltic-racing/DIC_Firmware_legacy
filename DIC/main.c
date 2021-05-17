@@ -55,7 +55,7 @@ CAN Error Check
 // RW         - PC1
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <stdint.h>
+
 #include "canlib.h"
 #include "generic.h"
 #include "display_functions.h"

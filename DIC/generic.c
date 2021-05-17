@@ -1,4 +1,4 @@
-g/*
+/*
  * generic.c
  *
  * Created: 03.05.2021 16:36:25
@@ -7,7 +7,7 @@ g/*
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <stdint.h>
+
 
 #include "canlib.h"
 #include "generic.h"

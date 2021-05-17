@@ -12,7 +12,7 @@
 //this will require modification of the CANlib so handle with care
 
 #include <avr/io.h>
-#include <stdint.h>
+
 
 void CAN_recieve();
 void can_init_messages();

@@ -6,7 +6,7 @@
  */ 
 
 #include <avr/io.h>
-#include <stdint.h>
+
 
 #ifndef CAN_LIB_H_
 #define CAN_LIB_H_

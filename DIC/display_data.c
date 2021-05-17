@@ -7,7 +7,7 @@
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <stdint.h>
+
 
 #include "canlib.h"
 #include "generic.h"

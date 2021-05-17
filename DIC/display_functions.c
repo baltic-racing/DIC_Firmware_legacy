@@ -9,7 +9,7 @@
 #include "display_data.h"
 #include <avr/io.h>
 #include <string.h>
-#include <stdint.h>
+
 
 extern uint8_t dsp_data [2][4][20]; 
 extern uint16_t rpm;

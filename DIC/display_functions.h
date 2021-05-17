@@ -5,7 +5,7 @@
  *  Author: cerbe
  */ 
 #include <avr/io.h>
-#include <stdint.h>
+
 
 #ifndef DISPLAY_FUNCTIONS_H_
 #define DISPLAY_FUNCTIONS_H_

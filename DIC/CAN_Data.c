@@ -9,7 +9,7 @@
 //This file is designed to give you updated CAN data, once called all the Values taken from the CAN-Bus are updated
 //If you need additional data from the CAN please implement it in here so it gets automatically updated when the CAN_REcieve functions is called every 10ms in the main.c
 #include <avr/io.h>
-#include <stdint.h>
+
 
 #include "CAN_Data.h"
 #include "canlib.h"
