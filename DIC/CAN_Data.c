@@ -16,74 +16,78 @@
 uint8_t Rotary_Encoder_Right = 0;
 uint16_t rpm = 0;
 
-can_init_messages(){
 struct CAN_MOB can_SWC_mob;
-can_SWC_mob.mob_id = 0x100;
-can_SWC_mob.mob_idmask = 0xffff;
-can_SWC_mob.mob_number = 0;
-uint8_t SWC_databytes[8];
-
+	uint8_t SWC_databytes[8];	
 struct CAN_MOB can_CMC_mob;
-can_CMC_mob.mob_id = 0x200;
-can_CMC_mob.mob_idmask = 0xffff;
-can_CMC_mob.mob_number = 1;
-uint8_t CMC_databytes[8];
-
+	uint8_t CMC_databytes[8];	
 struct CAN_MOB can_ETC_mob;
-can_ETC_mob.mob_id = 0x201;
-can_ETC_mob.mob_idmask = 0xffff;
-can_ETC_mob.mob_number = 2;
-uint8_t ETC_databytes[8];
-
+	uint8_t ETC_databytes[8];	
 struct CAN_MOB can_ecu0_mob;
-can_ecu0_mob.mob_id = 0x600;
-can_ecu0_mob.mob_idmask = 0xffff;
-can_ecu0_mob.mob_number = 3;
-uint8_t ecu0_databytes[8];
+	uint8_t ecu0_databytes[8];	
 struct CAN_MOB can_ecu2_mob;
-can_ecu2_mob.mob_id = 0x602;
-can_ecu2_mob.mob_idmask = 0xffff;
-can_ecu2_mob.mob_number = 4;
-uint8_t ecu2_databytes[8];
-
+	uint8_t ecu2_databytes[8];	
 struct CAN_MOB can_ecu4_mob;
-can_ecu4_mob.mob_id = 0x604;
-can_ecu4_mob.mob_idmask = 0xffff;
-can_ecu4_mob.mob_number = 5;
-uint8_t ecu4_databytes[8];
-
+	uint8_t ecu4_databytes[8];	
 struct CAN_MOB can_SHR0_mob;
-can_SHR0_mob.mob_id = 0x500;
-can_SHR0_mob.mob_idmask = 0xffff;
-can_SHR0_mob.mob_number = 6;
-uint8_t SHR0_databytes[8];
-
+	uint8_t SHR0_databytes[8];	
 struct CAN_MOB can_SHL0_mob;
-can_SHL0_mob.mob_id = 0x503;
-can_SHL0_mob.mob_idmask = 0xffff;
-can_SHL0_mob.mob_number = 7;
-uint8_t SHL0_databytes[8];
-
+	uint8_t SHL0_databytes[8];	
 struct CAN_MOB can_Logger0_mob;
-can_Logger0_mob.mob_id = 0x799;
-can_Logger0_mob.mob_idmask = 0xffff;
-can_Logger0_mob.mob_number = 8;
-uint8_t Logger0_databytes[8];
-
+	uint8_t Logger0_databytes[8];	
 struct CAN_MOB can_Logger1_mob;
-can_Logger1_mob.mob_id = 0x798;
-can_Logger1_mob.mob_idmask = 0xffff;
-can_Logger1_mob.mob_number = 9;
-uint8_t Logger1_databytes[8];
-
+	uint8_t Logger1_databytes[8];
 struct CAN_MOB can_Logger2_mob;
-can_Logger2_mob.mob_id = 0x797;
-can_Logger2_mob.mob_idmask = 0xffff;
-can_Logger2_mob.mob_number = 10;
-uint8_t Logger2_databytes[8];
-}
+	uint8_t Logger2_databytes[8];
 
-CAN_recieve(){
+void can_init_messages(){
+	
+	can_SWC_mob.mob_id = 0x100;
+	can_SWC_mob.mob_idmask = 0xffff;
+	can_SWC_mob.mob_number = 0;
+	
+	can_CMC_mob.mob_id = 0x200;
+	can_CMC_mob.mob_idmask = 0xffff;
+	can_CMC_mob.mob_number = 1;
+	
+	can_ETC_mob.mob_id = 0x201;
+	can_ETC_mob.mob_idmask = 0xffff;
+	can_ETC_mob.mob_number = 2;
+	
+	can_ecu0_mob.mob_id = 0x600;
+	can_ecu0_mob.mob_idmask = 0xffff;
+	can_ecu0_mob.mob_number = 3;
+	
+	can_ecu2_mob.mob_id = 0x602;
+	can_ecu2_mob.mob_idmask = 0xffff;
+	can_ecu2_mob.mob_number = 4;
+	
+	can_ecu4_mob.mob_id = 0x604;
+	can_ecu4_mob.mob_idmask = 0xffff;
+	can_ecu4_mob.mob_number = 5;
+	
+	can_SHR0_mob.mob_id = 0x500;
+	can_SHR0_mob.mob_idmask = 0xffff;
+	can_SHR0_mob.mob_number = 6;
+	
+	can_SHL0_mob.mob_id = 0x503;
+	can_SHL0_mob.mob_idmask = 0xffff;
+	can_SHL0_mob.mob_number = 7;
+	
+	can_Logger0_mob.mob_id = 0x799;
+	can_Logger0_mob.mob_idmask = 0xffff;
+	can_Logger0_mob.mob_number = 8;
+	
+	can_Logger1_mob.mob_id = 0x798;
+	can_Logger1_mob.mob_idmask = 0xffff;
+	can_Logger1_mob.mob_number = 9;
+		
+	can_Logger2_mob.mob_id = 0x797;
+	can_Logger2_mob.mob_idmask = 0xffff;
+	can_Logger2_mob.mob_number = 10;
+}	
+
+void CAN_recieve(){
+
 	can_rx(&can_SWC_mob, SWC_databytes);
 	can_rx(&can_CMC_mob, CMC_databytes);
 	can_rx(&can_ETC_mob, ETC_databytes);

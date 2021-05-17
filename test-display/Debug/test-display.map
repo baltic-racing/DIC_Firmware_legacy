@@ -426,11 +426,11 @@ END GROUP
  *(.debug_frame)
  .debug_frame   0x00000000       0x68 main.o
 
-.debug_str      0x00000000      0x530
+.debug_str      0x00000000      0x524
  *(.debug_str)
  .debug_str     0x00000000      0x39f C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.1.130/gcc/dev/at90can64/avr5/crtat90can64.o
- .debug_str     0x0000039f      0x191 main.o
-                                0x1ca (size before relaxing)
+ .debug_str     0x0000039f      0x185 main.o
+                                0x1be (size before relaxing)
 
 .debug_loc      0x00000000       0xea
  *(.debug_loc)

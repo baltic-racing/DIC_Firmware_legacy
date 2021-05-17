@@ -4,7 +4,7 @@
  * Created: 03.05.2021 15:55:46
  *  Author: Ole H.
  */ 
-
+#include <avr/io.h>
 
 #ifndef DISPLAY_DATA_H_
 #define DISPLAY_DATA_H_

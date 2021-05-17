@@ -11,5 +11,7 @@
 //Important! keep  in mind that the AT90CAN can by default only handle 16 CAN Messages, either try to stay within this limit, or create a buffer where you put the CAN data in and the reconfigure
 //this will require modification of the CANlib so handle with care
 
-	void CAN_recieve();
-	void can_init_messages();
+#include <avr/io.h>
+
+void CAN_recieve();
+void can_init_messages();
