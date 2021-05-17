@@ -13,6 +13,5 @@
 
 #include <avr/io.h>
 
-
 void CAN_recieve();
 void can_init_messages();

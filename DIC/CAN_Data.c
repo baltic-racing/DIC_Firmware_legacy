@@ -10,7 +10,6 @@
 //If you need additional data from the CAN please implement it in here so it gets automatically updated when the CAN_REcieve functions is called every 10ms in the main.c
 #include <avr/io.h>
 
-
 #include "CAN_Data.h"
 #include "canlib.h"
 

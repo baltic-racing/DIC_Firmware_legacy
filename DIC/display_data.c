@@ -209,6 +209,8 @@ void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number){
 	
 };
 
+
+//num_to_3digit this function not only converts the raw data to a 3Digit number which can be displayed onto the display, it also sets the Page and Position of the Number on the Display
 void num_to_3digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_w, uint8_t offset_l){
 	
 	

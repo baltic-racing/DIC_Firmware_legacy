@@ -45,7 +45,7 @@ large RPM display
 TC RPM BAR blink
 TC adjustment
 All Numbers as Custom Char
-CAN Error Check
+CAN Error Check check for non zero can messages
 */
 
 //Definitions
@@ -99,18 +99,11 @@ int main(void)
 
 		if(update_data>=33){ //refresh rate for display about 30Hz
 			update_data = 0;
-			//dsp_tps_err();
-			//dsp_mode();
 			if (dsp_mde == 1){ //DSP Mode 1 = Home
-				//dsp_rpm(); //change to hardware LED`S
-				//dsp_status(); //Refresh Sensor Values on the Display
-				//dsp_tcs(); unused Traction control code
+				//Put numto3digit here with the neccessary information required for thepage
 			}
-			else { //else Debug/Sensor Mode
-				//dsp_break_temp();
-				//dsp_voltage();
-				//dsp_break_pres();
-				//dsp_oil_temp();
+			else { //implement switch case for the different pages and modify ds_data_array
+
 			}
 		}
 		if(draw_data){ //1000Hz/1ms loop
