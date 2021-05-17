@@ -7,6 +7,7 @@
 
 #include "canlib.h"
 #include <avr/io.h>
+#include <stdint.h>
 
 
 uint8_t can_check_free(uint8_t mobnum){

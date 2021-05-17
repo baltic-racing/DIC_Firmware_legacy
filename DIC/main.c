@@ -31,9 +31,9 @@ generic.c & generic.h
 Write char function					X
 Version info function				X
 goto position function				X
-blinking Cursor
-selftest
-hardware LED indicator
+blinking Cursor (Optional)
+Selftest
+hardware LED RPM indicator
 shutdown LED indicator
 Error detection
 error indication
@@ -44,7 +44,7 @@ home display
 large RPM display
 TC RPM BAR blink
 TC adjustment
-All Numbers as Custum Char
+All Numbers as Custom Char
 CAN Error Check
 */
 
@@ -55,16 +55,18 @@ CAN Error Check
 // RW         - PC1
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include <stdint.h>
 #include "canlib.h"
-#include "generic_defines.h"
+#include "generic.h"
 #include "display_functions.h"
+
 
 uint8_t dsp_mde = 1;
 uint8_t update_data = 1;
 uint8_t draw_data = 1;
 
 //Volatiles -> Volatile indicates the compiler that the variable might change value unexpectatly for e.g. throug an Interrupt. 
-//this guarantess that the variable will always be loaded from memory when used
+//this guarantees that the variable will always be loaded from memory when used
 volatile uint8_t time_100 = 0;
 volatile unsigned long sys_time = 0;
 
