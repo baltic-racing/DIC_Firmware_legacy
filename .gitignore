@@ -4,3 +4,6 @@ DIC_irgendwie/Debug/*
 *.hex
 *.lss
 *.srec
+
+#User Specific Files
+*.atsuo
