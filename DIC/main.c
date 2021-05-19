@@ -33,7 +33,7 @@ Version info function				X
 goto position function				X
 blinking Cursor (Optional)
 Selftest
-hardware LED RPM indicator
+hardware LED RPM indicator			X
 shutdown LED indicator
 Error detection
 error indication
@@ -111,6 +111,7 @@ int main(void)
 
 		if(update_data>=33){ //refresh rate for display about 30Hz
 			update_data = 0;
+			LED_RPM_Bar();
 			if (dsp_mde == 0){ //DiSPlay Mode 0 = Home
 				large_number(0,17,gear);//Large Number for gear indicator
 				num_to_digit(0,CLT,0,3,11,0);//writes the number 121 for clt TEST ONLY!!!

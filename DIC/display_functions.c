@@ -17,6 +17,9 @@ extern uint16_t rpm;
 uint8_t counter = 0;                //counts transmissions
 uint8_t dsp_linecounter = 0;        //counts in which Line we currently are
 uint16_t rpm_ranges[12];
+uint16_t RPM_LED_Register;
+uint16_t RPM_divider = 0;
+uint8_t LED_active = 0;
 
 
 //initbefehle
@@ -36,6 +39,27 @@ uint8_t dsp_line[4] ={
 	0x94, //Line 2
 	0xD4, //Line 3
 	0x80, //Line 1
+};
+
+void LED_RPM_Bar(){
+RPM_divider = max_RPM/LED_Count;
+if (rpm >= RPM_divider)
+{
+	LED_active = rpm/RPM_divider;
+	LED_active--;
+		
+	for (RPM_LED_Register=1;LED_active>0;LED_active--){
+		RPM_LED_Register = RPM_LED_Register << 1;
+		RPM_LED_Register ++;
+	}
+}
+else{
+	RPM_LED_Register = 0;
+}
+
+RPM_LED_PORT_1 = RPM_LED_Register;
+RPM_LED_PORT_2 = RPM_LED_Register >> 8;
+
 };
 
 

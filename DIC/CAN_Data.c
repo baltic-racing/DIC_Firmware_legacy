@@ -119,6 +119,8 @@ void CAN_recieve(){
 	ecu2_databytes[3] = 110;	
 	SWC_databytes[0] = 1;
 	SWC_databytes[1] = 0;
+	ecu0_databytes[0] = 5620;
+	ecu0_databytes[1] = 5620 >> 8;
 	
 	
 	Rotary_Encoder_Right = SWC_databytes[0];

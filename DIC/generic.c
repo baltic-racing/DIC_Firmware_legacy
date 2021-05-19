@@ -15,6 +15,9 @@
 
 void Port_init(void)//initialises the needed ports
 {
+	DDRA = 0xFF; //Set PORTA as Output (RPM BAR)
+	DDRB = 0xFF; //Set PORTB as Output (RPM BAR)
+	DDRB &= ~(1<<PB7); //Reset PINB7 as Input as it is not used in the RPM BAR
 	DDRE = 0xFF;
 	DDRC = (1<<PC0) | (1<<PC1) | (1<<PC2);
 	PORTC = 0;
