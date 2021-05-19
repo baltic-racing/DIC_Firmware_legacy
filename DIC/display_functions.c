@@ -11,7 +11,7 @@
 #include <string.h>
 
 
-extern uint8_t dsp_data [2][4][20]; 
+extern uint8_t dsp_data [4][4][20]; 
 extern uint16_t rpm;
 
 uint8_t counter = 0;                //counts transmissions
@@ -115,20 +115,6 @@ void dsp_definechars()
 	
 };
 
-void dsp_write_string(char *to_write){ //not sure about exakt implimentation of rs pin exactly the value for rs and possibly rw in dsp_writedata and what it changes
-	
-	for(size_t x = 0; x < strlen(to_write); x++){
-		
-		dsp_writedata(to_write[x],1);
-		
-	}
-	
-}
-
-void dsp_goto_position(uint8_t Line, uint8_t Row){//not sure about exakt implimentation of rs pin exactly the value for rs and possibly rw in dsp_writedata and what it changes
-	dsp_writedata(dsp_line[Line]+Row, 0);
-}
-
 //runs through the init commands
 void dsp_init()
 {
@@ -136,17 +122,4 @@ void dsp_init()
 	for (int i=0; i<7;i++){
 		dsp_writedata(dsp_command[i],0);
 	}
-}
-
-void showVersionsInformation() {
-
-	dsp_goto_position(0, 0);
-	dsp_write_string("      DIC TY20      ");
-	dsp_goto_position(1, 0);
-	dsp_write_string("       V 1.0.2      ");
-	dsp_goto_position(2, 0);
-	dsp_write_string("Proudly presented by");
-	dsp_goto_position(3, 0);
-	dsp_write_string("    Lukas Deeken    ");
-
 }

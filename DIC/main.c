@@ -46,6 +46,9 @@ TC RPM BAR blink
 TC adjustment
 All Numbers as Custom Char
 CAN Error Check check for non zero can messages
+function num_to_digit displays zero when value is smaller than max digit count. needs to be acounted for -- Implemented
+function num_to_digit when value larger than digit is put in it cuts the excess instead of showing for e.g. 999
+Implement Brake Bias Calculation
 */
 
 //Definitions
@@ -61,9 +64,10 @@ CAN Error Check check for non zero can messages
 #include "display_functions.h"
 
 
-uint8_t dsp_mde = 1;
+uint8_t dsp_mde = 2;
 uint8_t update_data = 1;
 uint8_t draw_data = 1;
+extern uint8_t dsp_data [4][4][20];
 
 //Volatiles -> Volatile indicates the compiler that the variable might change value unexpectatly for e.g. throug an Interrupt. 
 //this guarantees that the variable will always be loaded from memory when used
@@ -72,6 +76,14 @@ volatile unsigned long sys_time = 0;
 
 //Global Variables -> extern indicates that variables are defined in another File always use extern except the file where the Variabel is first deklared
 extern uint8_t Rotary_Encoder_Right;
+extern uint8_t gear;
+extern uint8_t CLT;
+extern uint8_t OILP;
+extern uint8_t OILT;
+extern uint8_t BrakeBias;
+extern uint8_t Clutchtime;
+extern uint8_t ECUVoltage;
+
 
 ISR(TIMER0_COMP_vect)
 { //For every interrupt (1ms/1kHz) write one character into the display
@@ -99,15 +111,41 @@ int main(void)
 
 		if(update_data>=33){ //refresh rate for display about 30Hz
 			update_data = 0;
-			if (dsp_mde == 1){ //DSP Mode 1 = Home
-				//Put numto3digit here with the neccessary information required for thepage
+			if (dsp_mde == 0){ //DiSPlay Mode 0 = Home
+				large_number(0,17,gear);//Large Number for gear indicator
+				num_to_digit(0,CLT,0,3,11,0);//writes the number 121 for clt TEST ONLY!!!
+				num_to_digit(0,OILT,0,3,11,1);//writes the number 113 for OilT TEST ONLY!!!
+				num_to_digit(0,OILP,1,2,4,1);//writes the number 5,6 for oil Pressure TEST ONLY!!!
+				num_to_digit(0,BrakeBias,0,2,4,2);//writes the number 55 for BB  TEST ONLY!!!
+				num_to_digit(0,Clutchtime,1,2,11,2);//writes the number 1,5 for CLU  TEST ONLY!!!
+				num_to_digit(0,ECUVoltage,1,3,10,3);//writes the number 12,4 for Voltage TEST ONLY!!!
+				if (Clutchtime == 0)
+				{ 
+					dsp_data[0][2][7] = 'L';
+					dsp_data[0][2][8] = 'C';
+					dsp_data[0][2][9] = 0x10;
+					dsp_data[0][2][10] = 'A';
+					dsp_data[0][2][11] = 'C';
+					dsp_data[0][2][12] = 'T';	
+					dsp_data[0][2][13] = 'I';
+					dsp_data[0][2][14] = 'V';
+					dsp_data[0][2][15] = 'E';				
+				}
 			}
-			else { //implement switch case for the different pages and modify ds_data_array
-
+			if (dsp_mde == 1){ //debug screen
+				large_number(1,17,gear);//Large Number for gear indicator
+				
 			}
+			if (dsp_mde == 2){ //Times screen
+				large_number(2,17,gear);//Large Number for gear indicator
+				
+			}
+			if (dsp_mde == 3){ //RPM
+				
+			}			
 		}
 		if(draw_data){ //1000Hz/1ms loop
-			dsp_write(Rotary_Encoder_Right);
+			dsp_write(dsp_mde);
 			draw_data = 0;
 		}	
 		if(sys_time - time_100 >= 10){//100Hz/10ms loop

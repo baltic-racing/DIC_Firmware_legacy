@@ -15,7 +15,7 @@
 
 
 
-uint8_t dsp_data [2][4][20]; 
+uint8_t dsp_data [4][4][20]; 
 
 
 
@@ -211,7 +211,7 @@ void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number){
 
 
 //num_to_3digit this function not only converts the raw data to a 3Digit number which can be displayed onto the display, it also sets the Page and Position of the Number on the Display
-void num_to_3digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_w, uint8_t offset_l){
+void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_column, uint8_t offset_line){
 	
 	
 	
@@ -220,20 +220,24 @@ void num_to_3digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t dig
 		//convertz num to x digits
 		uint8_t digit = number % 10;
 		digit = 0x30 + digit;
+		if (digit == 0x30 & number/10 == 0){ //When number is smaller than digit count for eg 3digit oilt but its only 80°C it only displays 2 digit's
+			digit = 0x10;
+		}
 		number = number/10;
+
 		
 		if(comma == 1){
 		
 			if(i < 1){
-				dsp_data [dsp_mode][offset_l][offset_w+digits-i] = digit;
-				dsp_data [dsp_mode][offset_l][offset_w+digits-1-i] = '.';
+				dsp_data [dsp_mode][offset_line][offset_column+digits-i] = digit;
+				dsp_data [dsp_mode][offset_line][offset_column+digits-1-i] = '.';
 			}else{
-				dsp_data [dsp_mode][offset_l][offset_w+digits-1-i] = digit;
+				dsp_data [dsp_mode][offset_line][offset_column+digits-1-i] = digit;
 			}
 		
 		} else {
 			
-			dsp_data [dsp_mode][offset_l][offset_w+digits-1-i] = digit;
+			dsp_data [dsp_mode][offset_line][offset_column+digits-1-i] = digit;
 			
 		}
 	}
@@ -250,10 +254,13 @@ void dsp_arrayinit(void)
 		for (int s=0;s<20;s++){
 			dsp_data[0][i][s]=0x10;
 			dsp_data[1][i][s]=0x10;
+			dsp_data[2][i][s]=0x10;
+			dsp_data[3][i][s]=0x10;
 		}
 	}
-
+//OLD Display implementation
 	//STATUSINDICATOR
+	/*
 	// writes =
 	dsp_data[1][3][1] = '=';
 	dsp_data[1][3][8] = '=';
@@ -280,18 +287,105 @@ void dsp_arrayinit(void)
 	dsp_data[1][2][1]= 0x30;
 	dsp_data[1][2][2]= 0x30;
 	dsp_data[1][2][3]= 0x30;
+	*/
+//new home screen
+	//first argument is the display mode here i is always 0, second number is the row count (4 rows 1-3), 3argument is the Line count 0-20
+	//Names
+	dsp_data[0][0][0] = 'C';
+	dsp_data[0][0][1] = 'O';
+	dsp_data[0][0][2] = 'O';
+	dsp_data[0][0][3] = 'L';
 	
-	//DEBUG INTERFACE
-	dsp_data[0][0][0] = 'B'; dsp_data[0][0][1] = 'P'; dsp_data[0][0][2] = 'F'; dsp_data[0][0][3] = 'R'; dsp_data[0][0][4] = '='; dsp_data[0][0][7] = 'B';	//implemented
-	dsp_data[0][1][0] = 'B'; dsp_data[0][1][1] = 'P'; dsp_data[0][1][2] = 'R'; dsp_data[0][1][3] = 'E'; dsp_data[0][1][4] = '='; dsp_data[0][1][7] = 'B';	//implemented
-	dsp_data[0][2][0] = 'B'; dsp_data[0][2][1] = 'T'; dsp_data[0][2][2] = 'L'; dsp_data[0][2][3] = '='; dsp_data[0][2][7] = 'C';							//implemented
-	dsp_data[0][3][0] = 'B'; dsp_data[0][3][1] = 'T'; dsp_data[0][3][2] = 'R'; dsp_data[0][3][3] = '='; dsp_data[0][3][7] = 'C';							//implemented
+	dsp_data[0][1][0] = 'O';
+	dsp_data[0][1][1] = 'E';
+	dsp_data[0][1][2] = 'L';	
 	
-	dsp_data[0][0][9] = 'V'; dsp_data[0][0][10] = 'B'; dsp_data[0][0][11] = '='; dsp_data[0][0][14] = '.'; dsp_data[0][0][16] = 'V';						//implemented
-	dsp_data[0][1][9] = 'T'; dsp_data[0][1][10] = 'P'; dsp_data[0][1][11] = 'S'; dsp_data[0][1][12] = '='; dsp_data[0][1][16] = 0x06; 					//implemented
-	dsp_data[0][2][9] = 'O'; dsp_data[0][2][10] = 'i'; dsp_data[0][2][11] = 'T'; dsp_data[0][2][12] = '='; dsp_data[0][2][16] = 'C';            //implemented
-	dsp_data[0][3][9] = 'S'; dsp_data[0][3][10] = 'l'; dsp_data[0][3][11] = 'i'; dsp_data[0][3][12] = '='; dsp_data[0][3][16] = 0x06;
+	dsp_data[0][2][0] = 'B';
+	dsp_data[0][2][1] = 'B';	
 	
+	dsp_data[0][2][7] = 'C';
+	dsp_data[0][2][8] = 'L';
+	dsp_data[0][2][9] = 'U';
+	//Units
+	dsp_data[0][1][7] = 'B';
+	
+	dsp_data[0][0][15] = 'C';
+	dsp_data[0][1][15] = 'C';
+	dsp_data[0][2][15] = 's';
+	dsp_data[0][3][15] = 'V';
+	
+//DEBUG INTERFACE
+	//Names
+	dsp_data[1][0][0] = 'T'; 
+	dsp_data[1][0][1] = 'P';
+	dsp_data[1][0][2] = 'S';
+	dsp_data[1][0][3] = '1';
+	dsp_data[1][0][10] = '2';
+	
+	dsp_data[1][1][0] = 'A';
+	dsp_data[1][1][1] = 'P';
+	dsp_data[1][1][2] = 'S';
+	dsp_data[1][1][3] = '1';
+	dsp_data[1][1][10] = '2';
+	
+	dsp_data[1][2][0] = 'T';
+	dsp_data[1][2][1] = 'P';
+	dsp_data[1][2][2] = 'S';
+	dsp_data[1][2][3] = 'E';	
+	
+	dsp_data[1][3][0] = 'B';
+	dsp_data[1][3][1] = 'P';
+	dsp_data[1][3][2] = 'F';
+	dsp_data[1][3][8] = 'R';	
+	//Units
+	dsp_data[1][0][8] = '%';
+	dsp_data[1][1][8] = '%';
+	dsp_data[1][2][8] = '%';		
+	
+	dsp_data[1][0][15] = '%';
+	dsp_data[1][1][15] = '%';	
+	
+	dsp_data[1][3][6] = 'B';
+	dsp_data[1][3][12] = 'B';	
+	
+//Timing screen
+
+	dsp_data[2][0][0] = 'T';
+	dsp_data[2][0][1] = 'C';
+	
+	dsp_data[2][1][0] = 'B';
+	dsp_data[2][1][1] = 'E';
+	dsp_data[2][1][2] = 'S';		
+	
+	dsp_data[2][2][0] = 'P';
+	dsp_data[2][2][1] = 'R';
+	dsp_data[2][2][2] = 'E';
+	
+	dsp_data[2][3][0] = 'L';
+	dsp_data[2][3][1] = 'N';
+	
+	dsp_data[2][0][5] = 'S';
+	dsp_data[2][0][6] = 'P';	
+	dsp_data[2][0][7] = 'E';
+	dsp_data[2][0][8] = 'D';
+	
+	dsp_data[2][0][13]= 'K';
+	dsp_data[2][0][14]= 'M';
+	dsp_data[2][0][15]= 'H';	
+
+	dsp_data[2][3][6]= 'O';
+	dsp_data[2][3][7]= 'D';
+	dsp_data[2][3][8]= 'O';
+	
+	dsp_data[2][3][13] = 'K';
+	dsp_data[2][3][14] = 'M';	
+	
+	dsp_data[2][1][5] = ':';
+	dsp_data[2][1][8] = ':';
+	dsp_data[2][2][5] = ':';
+	dsp_data[2][2][8] = ':';
+	
+		
 };
 
 

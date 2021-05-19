@@ -13,8 +13,18 @@
 #include "CAN_Data.h"
 #include "canlib.h"
 
+extern uint8_t dsp_mde;
+
 uint8_t Rotary_Encoder_Right = 0;
+uint8_t Rotary_Encoder_Left = 0;
 uint16_t rpm = 0;
+uint8_t gear = 0;
+uint8_t CLT = 0;
+uint8_t OILP = 0;
+uint8_t OILT = 0;
+uint8_t BrakeBias = 0;
+uint8_t Clutchtime = 0;
+uint8_t ECUVoltage = 0;
 
 struct CAN_MOB can_SWC_mob;
 	uint8_t SWC_databytes[8];	
@@ -99,7 +109,27 @@ void CAN_recieve(){
 	can_rx(&can_Logger0_mob, Logger0_databytes);
 	can_rx(&can_Logger1_mob, Logger1_databytes);
 	can_rx(&can_Logger2_mob, Logger2_databytes);
+	// Testdata comment when display is in car
+	ecu4_databytes[2] = 128;
+	ecu4_databytes[3] = 128 >> 8;
+	CMC_databytes[0] = 1;
+	ecu2_databytes[6] = 90;
+	ecu2_databytes[7] = 90 >> 8;
+	ecu2_databytes[4] = 23;
+	ecu2_databytes[3] = 110;	
+	SWC_databytes[0] = 1;
+	SWC_databytes[1] = 0;
+	
 	
 	Rotary_Encoder_Right = SWC_databytes[0];
+	Rotary_Encoder_Left = SWC_databytes[1];
+	dsp_mde = Rotary_Encoder_Right;
+	Clutchtime = Rotary_Encoder_Left*5;//0,5s steps
 	rpm = ecu0_databytes[1] << 8 | ecu0_databytes[0];
+	gear = CMC_databytes[0];
+	CLT = ecu2_databytes[7] << 8 | ecu2_databytes[6];
+	OILP = ecu2_databytes[4];
+	OILT = ecu2_databytes[3];
+	BrakeBias = 0;
+	ECUVoltage = ecu4_databytes[3] << 8 | ecu4_databytes[2];
 }

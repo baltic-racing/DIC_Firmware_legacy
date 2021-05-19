@@ -11,7 +11,7 @@
 #define DISPLAY_DATA_H_
 
 void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number);
-void num_to_3digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits);
+void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_column, uint8_t offset_line);
 void dsp_arrayinit(void);
 
 #endif /* DISPLAY_DATA_H_ */
