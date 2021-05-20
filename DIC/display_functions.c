@@ -13,6 +13,8 @@
 
 extern uint8_t dsp_data [4][4][20]; 
 extern uint16_t rpm;
+extern volatile unsigned long sys_time;
+unsigned long sys_time_blink = 0;
 
 uint8_t counter = 0;                //counts transmissions
 uint8_t dsp_linecounter = 0;        //counts in which Line we currently are
@@ -20,6 +22,7 @@ uint16_t rpm_ranges[12];
 uint16_t RPM_LED_Register;
 uint16_t RPM_divider = 0;
 uint8_t LED_active = 0;
+
 
 
 //initbefehle
@@ -41,8 +44,9 @@ uint8_t dsp_line[4] ={
 	0x80, //Line 1
 };
 
+//This functions calculates the number of led's that need to be turned on to represent to current motor RPM
 void LED_RPM_Bar(){
-RPM_divider = max_RPM/LED_Count;
+RPM_divider = RPM_MAX/LED_Count;
 if (rpm >= RPM_divider)
 {
 	LED_active = rpm/RPM_divider;
@@ -57,10 +61,26 @@ else{
 	RPM_LED_Register = 0;
 }
 
-RPM_LED_PORT_1 = RPM_LED_Register;
-RPM_LED_PORT_2 = RPM_LED_Register >> 8;
-
 };
+
+void RPM_LED_Blink(){
+
+	if (rpm >= shiftrpm & sys_time-sys_time_blink >= Blinkintervall){
+		
+		if (RPM_LED_PORT_1 == 0){	//when the RPM LED's have been turned off by the blinking algorythm and the intervall is over we want to switch the led's on
+			RPM_LED_PORT_1 = RPM_LED_Register;
+			RPM_LED_PORT_2 = RPM_LED_Register >> 8;
+			sys_time_blink = sys_time;
+		}else{						//when the RPM LED's have been turned on by the blinking algorythm and the intervall is over we want to switch the led's off
+			RPM_LED_PORT_1 = 0x00;
+			RPM_LED_PORT_2 = 0x00;
+			sys_time_blink = sys_time;
+		}
+	}else if(rpm < shiftrpm){							//when the RPM LED's have been turned off by the blinking algorythm and the conditions for the blinking are not met we want to turn them back on again
+		RPM_LED_PORT_1 = RPM_LED_Register;
+		RPM_LED_PORT_2 = RPM_LED_Register >> 8;		
+	}
+}
 
 
 void dsp_writedata(uint8_t data,uint8_t rs) {

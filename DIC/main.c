@@ -65,9 +65,9 @@ Implement Brake Bias Calculation	x
 #include "display_data.h"
 
 
-uint8_t dsp_mde = 2;
-uint8_t update_data = 1;
-uint8_t draw_data = 1;
+uint8_t dsp_mde = 0;
+uint8_t update_data = 0;
+uint8_t draw_data = 0;
 extern uint8_t dsp_data [4][4][20];
 
 //Volatiles -> Volatile indicates the compiler that the variable might change value unexpectatly for e.g. throug an Interrupt. 
@@ -124,7 +124,7 @@ int main(void)
 
 		if(update_data>=33){ //refresh rate for display about 30Hz
 			update_data = 0;
-			LED_RPM_Bar();
+
 			if (dsp_mde == 0){ //DiSPlay Mode 0 = Home
 				large_number(0,17,gear);//Large Number for gear indicator
 				num_to_digit(0,CLT,0,3,11,0);//writes the number 121 for clt TEST ONLY!!!
@@ -187,6 +187,8 @@ int main(void)
 		if(draw_data){ //1000Hz/1ms loop
 			dsp_write(dsp_mde);
 			draw_data = 0;
+			RPM_LED_Blink();
+			LED_RPM_Bar();
 		}	
 		if(sys_time - time_100 >= 10){//100Hz/10ms loop
 			CAN_recieve();

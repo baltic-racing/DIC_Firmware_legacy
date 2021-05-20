@@ -146,8 +146,8 @@ void CAN_put_data(){
 		ecu2_databytes[3] = 110;
 		SWC_databytes[0] = 0;
 		SWC_databytes[1] = 0;
-		ecu0_databytes[0] = 5620;
-		ecu0_databytes[1] = 5620 >> 8;
+		ecu0_databytes[0] = 3500;
+		ecu0_databytes[1] = 3500 >> 8;
 		ETC_databytes[1] = 60;
 		ETC_databytes[2] = 75;
 		ETC_databytes[3] = 100;
