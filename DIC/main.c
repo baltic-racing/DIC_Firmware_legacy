@@ -43,12 +43,12 @@ debug display
 home display
 large RPM display
 TC RPM BAR blink
-TC adjustment
+TC adjustment !!!
 All Numbers as Custom Char
 CAN Error Check check for non zero can messages
 function num_to_digit displays zero when value is smaller than max digit count. needs to be acounted for -- Implemented
 function num_to_digit when value larger than digit is put in it cuts the excess instead of showing for e.g. 999
-Implement Brake Bias Calculation
+Implement Brake Bias Calculation	x
 */
 
 //Definitions
@@ -62,6 +62,7 @@ Implement Brake Bias Calculation
 #include "canlib.h"
 #include "generic.h"
 #include "display_functions.h"
+#include "display_data.h"
 
 
 uint8_t dsp_mde = 2;
@@ -80,10 +81,22 @@ extern uint8_t gear;
 extern uint8_t CLT;
 extern uint8_t OILP;
 extern uint8_t OILT;
-extern uint8_t BrakeBias;
 extern uint8_t Clutchtime;
 extern uint8_t ECUVoltage;
-
+extern uint8_t TPS1;
+extern uint8_t TPS2;
+extern uint8_t TPSE;
+extern uint8_t APPS1;
+extern uint8_t APPS2;
+extern uint8_t BPF;
+extern uint8_t BPR;
+extern uint32_t Laptime;
+extern uint32_t Besttime;
+extern uint32_t Pred_time;
+extern uint16_t ODO;
+extern uint16_t GPS_Speed;
+extern uint8_t LapNumber;
+int32_t difftime = 0;
 
 ISR(TIMER0_COMP_vect)
 { //For every interrupt (1ms/1kHz) write one character into the display
@@ -117,9 +130,21 @@ int main(void)
 				num_to_digit(0,CLT,0,3,11,0);//writes the number 121 for clt TEST ONLY!!!
 				num_to_digit(0,OILT,0,3,11,1);//writes the number 113 for OilT TEST ONLY!!!
 				num_to_digit(0,OILP,1,2,4,1);//writes the number 5,6 for oil Pressure TEST ONLY!!!
-				num_to_digit(0,BrakeBias,0,2,4,2);//writes the number 55 for BB  TEST ONLY!!!
+				num_to_digit(0,calc_BB(BPF,BPR),0,2,4,2);//writes the number 55 for BB  TEST ONLY!!!
 				num_to_digit(0,Clutchtime,1,2,11,2);//writes the number 1,5 for CLU  TEST ONLY!!!
 				num_to_digit(0,ECUVoltage,1,3,10,3);//writes the number 12,4 for Voltage TEST ONLY!!!
+				
+				//we need a condition that the diff time only gets shown for a few seconds after the lap is completed
+				difftime = Laptime-Besttime;
+				time_to_digit(0,abs(difftime),1,3);
+				dsp_data[0][3][5] = ':';
+				if (difftime >= 0){
+					dsp_data[0][3][0] = '+';
+				}
+				else{
+					dsp_data[0][3][0] = '-';
+				}
+				
 				if (Clutchtime == 0)
 				{ 
 					dsp_data[0][2][7] = 'L';
@@ -135,10 +160,24 @@ int main(void)
 			}
 			if (dsp_mde == 1){ //debug screen
 				large_number(1,17,gear);//Large Number for gear indicator
+				num_to_digit(1,TPS1,0,3,5,0);
+				num_to_digit(1,APPS1,0,3,5,1);
+				num_to_digit(1,TPSE,0,3,5,2);
 				
+				num_to_digit(1,TPS2,0,3,12,0);
+				num_to_digit(1,APPS2,0,3,12,1);
+
+				num_to_digit(1,BPF,0,2,4,3);
+				num_to_digit(1,BPR,0,2,10,3);				
 			}
 			if (dsp_mde == 2){ //Times screen
 				large_number(2,17,gear);//Large Number for gear indicator
+				time_to_digit(2,Besttime,4,1); //BEST/LAP Convertes a time in ms to minutes:seconds:milliseconds
+				time_to_digit(2,Pred_time,4,2); //Predicted
+				num_to_digit(2,ODO,0,3,10,3); //ODO
+				num_to_digit(2,9,0,1,3,0);//TC setting needs to be implemented!!!
+				num_to_digit(2,LapNumber,0,2,3,3);//Lap number
+				num_to_digit(2,GPS_Speed,0,3,10,0);//Speed
 				
 			}
 			if (dsp_mde == 3){ //RPM
@@ -151,6 +190,7 @@ int main(void)
 		}	
 		if(sys_time - time_100 >= 10){//100Hz/10ms loop
 			CAN_recieve();
+			CAN_put_data();
 			time_100 = sys_time;
 			
 		}

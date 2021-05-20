@@ -25,6 +25,31 @@ uint8_t OILT = 0;
 uint8_t BrakeBias = 0;
 uint8_t Clutchtime = 0;
 uint8_t ECUVoltage = 0;
+uint8_t TPS1 = 0;
+uint8_t TPS2 = 0;
+uint8_t TPSE = 0;
+uint8_t APPS1 = 0;
+uint8_t APPS2 = 0;
+uint8_t BPF = 0;
+uint8_t BPR = 0;
+uint8_t LapNumber = 0;
+uint32_t Laptime = 0;
+uint8_t Laptime_1 = 0;
+uint16_t Laptime_2 = 0;
+uint32_t Laptime_3 = 0;
+uint32_t Laptime_4 = 0;
+uint32_t Besttime = 0;
+uint8_t Besttime_1 = 0;
+uint16_t Besttime_2 = 0;
+uint32_t Besttime_3 = 0;
+uint32_t Besttime_4 = 0;
+uint32_t Pred_time = 0;
+uint8_t Pred_time_1 = 0;
+uint16_t Pred_time_2 = 0;
+uint32_t Pred_time_3 = 0;
+uint32_t Pred_time_4 = 0;
+uint16_t ODO = 0;
+uint16_t GPS_Speed = 0;
 
 struct CAN_MOB can_SWC_mob;
 	uint8_t SWC_databytes[8];	
@@ -97,7 +122,6 @@ void can_init_messages(){
 }	
 
 void CAN_recieve(){
-
 	can_rx(&can_SWC_mob, SWC_databytes);
 	can_rx(&can_CMC_mob, CMC_databytes);
 	can_rx(&can_ETC_mob, ETC_databytes);
@@ -109,20 +133,54 @@ void CAN_recieve(){
 	can_rx(&can_Logger0_mob, Logger0_databytes);
 	can_rx(&can_Logger1_mob, Logger1_databytes);
 	can_rx(&can_Logger2_mob, Logger2_databytes);
-	// Testdata comment when display is in car
-	ecu4_databytes[2] = 128;
-	ecu4_databytes[3] = 128 >> 8;
-	CMC_databytes[0] = 1;
-	ecu2_databytes[6] = 90;
-	ecu2_databytes[7] = 90 >> 8;
-	ecu2_databytes[4] = 23;
-	ecu2_databytes[3] = 110;	
-	SWC_databytes[0] = 1;
-	SWC_databytes[1] = 0;
-	ecu0_databytes[0] = 5620;
-	ecu0_databytes[1] = 5620 >> 8;
-	
-	
+}
+
+void CAN_put_data(){
+		// Testdata comment when display is in car
+		ecu4_databytes[2] = 128;
+		ecu4_databytes[3] = 128 >> 8;
+		CMC_databytes[0] = 1;
+		ecu2_databytes[6] = 90;
+		ecu2_databytes[7] = 90 >> 8;
+		ecu2_databytes[4] = 23;
+		ecu2_databytes[3] = 110;
+		SWC_databytes[0] = 0;
+		SWC_databytes[1] = 0;
+		ecu0_databytes[0] = 5620;
+		ecu0_databytes[1] = 5620 >> 8;
+		ETC_databytes[1] = 60;
+		ETC_databytes[2] = 75;
+		ETC_databytes[3] = 100;
+		ETC_databytes[4] = 105;
+		ecu0_databytes[2] = 9;
+		SHR0_databytes[0] = 40;
+		SHR0_databytes[1] = 40 >> 8;
+		SHL0_databytes[2] = 35;
+		SHL0_databytes[3] = 35 >> 8;
+		//Laptime
+		Logger0_databytes[1] = 14985;
+		Logger0_databytes[2] = 14985>>8;
+		Logger0_databytes[3] = 14985>>16;
+		Logger0_databytes[4] = 14985>>24;
+		//Besttime
+		Logger1_databytes[0] = 16554;
+		Logger1_databytes[1] = 16554>>8;
+		Logger1_databytes[2] = 16554>>16;
+		Logger1_databytes[3] = 16554>>24;
+		//predtime
+		Logger1_databytes[4] = 96200;
+		Logger1_databytes[5] = 96200>>8;
+		Logger1_databytes[6] = 96200>>16;
+		Logger1_databytes[7] = 96200>>24;
+		
+		Logger0_databytes[5] = 223;
+		Logger0_databytes[6] = 223 << 8;
+		
+		Logger2_databytes[6] = 96;
+		Logger2_databytes[7] = 96<<8;
+		
+		Logger0_databytes[0] = 42;
+		
 	Rotary_Encoder_Right = SWC_databytes[0];
 	Rotary_Encoder_Left = SWC_databytes[1];
 	dsp_mde = Rotary_Encoder_Right;
@@ -134,4 +192,41 @@ void CAN_recieve(){
 	OILT = ecu2_databytes[3];
 	BrakeBias = 0;
 	ECUVoltage = ecu4_databytes[3] << 8 | ecu4_databytes[2];
+	
+	TPS1 = ETC_databytes[2];
+	TPS2 = ETC_databytes[3];
+	TPSE = ecu0_databytes[2];
+	APPS1 =ETC_databytes[1];
+	APPS2 = ETC_databytes[2];
+	BPF = SHR0_databytes[1] << 8 | SHR0_databytes[0];
+	BPR = SHL0_databytes[3] << 8 | SHL0_databytes[2];
+	//For some weird reason the length of the variable that gets shifted seems to matter, atleast in this usecase, with for e.g BPF etc it works fine which may be becouse we are actually only transmitting an 8 bit value
+	//what happens is we shift an 8bit uint by 8 to the left and want to save it in an 32bit uint, we put for e.g 135 in and should get 34560. instead we are getting 4294965720 which is definitly also not an 8bit value
+	//i do not know what is happening here but shifting a variable beyond its own limit seems to do weird stuff. therefore this stupid hacky fix with putting the 8bit integers into 32bit integer and than whacking it together
+	
+	Laptime_1 = Logger0_databytes[1];
+	Laptime_2 = Logger0_databytes[2];
+	Laptime_3 = Logger0_databytes[3];
+	Laptime_4 = Logger0_databytes[4];
+	
+	Laptime = Laptime_1 | Laptime_2 << 8 | Laptime_3 << 16 | Laptime_4 << 24;
+	
+	Besttime_1 = Logger1_databytes[0];
+	Besttime_2 = Logger1_databytes[1];
+	Besttime_3 = Logger1_databytes[2];
+	Besttime_4 = Logger1_databytes[3];
+	
+	Besttime = Besttime_1 | Besttime_2 << 8 | Besttime_3 << 16 | Besttime_4 << 24;
+	
+	Pred_time_1 = Logger1_databytes[4];
+	Pred_time_2 = Logger1_databytes[5];
+	Pred_time_3 = Logger1_databytes[6];
+	Pred_time_4 = Logger1_databytes[7];
+	
+	Pred_time = Pred_time_1 | Pred_time_2 << 8 | Pred_time_3 << 16 | Pred_time_4 << 24;	
+	
+	ODO = Logger0_databytes[6] << 8 | Logger0_databytes[5];
+	GPS_Speed = Logger2_databytes[7] << 8 | Logger2_databytes[6];
+	LapNumber = Logger0_databytes[0];	
+	
 }

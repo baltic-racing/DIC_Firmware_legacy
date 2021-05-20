@@ -16,7 +16,17 @@
 
 
 uint8_t dsp_data [4][4][20]; 
+float BB = 0;
 
+uint8_t calc_BB (uint8_t BPF, uint8_t BPR){
+	BB = 0;
+	if (BPF >= 10){
+		BB = BPF+BPR;
+		BB = BPF/BB;
+		BB = BB*100;
+	}
+return BB;
+}
 
 
 void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number){
@@ -213,8 +223,6 @@ void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number){
 //num_to_3digit this function not only converts the raw data to a 3Digit number which can be displayed onto the display, it also sets the Page and Position of the Number on the Display
 void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_column, uint8_t offset_line){
 	
-	
-	
 	for(uint8_t i = 0; i < digits; i++){
 	
 		//convertz num to x digits
@@ -225,7 +233,6 @@ void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digi
 		}
 		number = number/10;
 
-		
 		if(comma == 1){
 		
 			if(i < 1){
@@ -238,11 +245,46 @@ void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digi
 		} else {
 			
 			dsp_data [dsp_mode][offset_line][offset_column+digits-1-i] = digit;
-			
 		}
 	}
+};
+
+void time_to_digit(uint8_t dsp_mode, uint32_t number, uint8_t offset_column, uint8_t offset_line){
 	
-	
+//convertz number to time format m:ss:msmsms
+uint16_t milliseconds = number % 1000;
+uint16_t minutes = number / 1000;
+minutes = minutes / 60;
+uint16_t seconds = number / 1000;
+seconds = seconds % 60;
+
+	//milliseconds conversion
+	for(uint8_t i = 0; i < 3; i++){
+		uint8_t digit = milliseconds % 10;
+		digit = 0x30 + digit;
+		milliseconds = milliseconds/10;
+			
+		dsp_data [dsp_mode][offset_line][offset_column+8-1-i] = digit;
+	}
+	//seconds conversion
+	for(uint8_t i = 0; i < 2; i++){
+		uint8_t digit = seconds % 10;
+		digit = 0x30 + digit;
+		seconds = seconds/10;
+		
+		dsp_data [dsp_mode][offset_line][offset_column+4-1-i] = digit;
+	}
+	//minutes conversion
+	for(uint8_t i = 0; i < 2; i++){
+		uint8_t digit = minutes % 10;
+		digit = 0x30 + digit;
+		if (digit == 0x30 & minutes/10 == 0){ //When number is smaller than digit count for eg 3digit oilt but its only 80°C it only displays 2 digit's
+			digit = 0x10;
+		}
+		minutes = minutes/10;
+		
+		dsp_data [dsp_mode][offset_line][offset_column+1-1-i] = digit;
+	}	
 	
 };
 
