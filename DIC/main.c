@@ -64,6 +64,8 @@ Implement Brake Bias Calculation	x
 #include "display_functions.h"
 #include "display_data.h"
 
+#define time_indicator_intervall 5000
+
 
 uint8_t dsp_mde = 0;
 uint8_t update_data = 0;
@@ -74,6 +76,7 @@ extern uint8_t dsp_data [4][4][20];
 //this guarantees that the variable will always be loaded from memory when used
 volatile uint8_t time_100 = 0;
 volatile unsigned long sys_time = 0;
+unsigned long systime_time_indicator = 0;
 
 //Global Variables -> extern indicates that variables are defined in another File always use extern except the file where the Variabel is first deklared
 extern uint8_t Rotary_Encoder_Right;
@@ -96,7 +99,11 @@ extern uint32_t Pred_time;
 extern uint16_t ODO;
 extern uint16_t GPS_Speed;
 extern uint8_t LapNumber;
+
+extern char error_indicator[];
+
 int32_t difftime = 0;
+int32_t difftime_old = 0;
 
 ISR(TIMER0_COMP_vect)
 { //For every interrupt (1ms/1kHz) write one character into the display
@@ -118,7 +125,7 @@ int main(void)
 	
 	dsp_clear();
 	sei();
-	selftest();
+	//selftest();
 	dsp_arrayinit_static();
 	//Loop
 	while(1){
@@ -134,21 +141,29 @@ int main(void)
 				num_to_digit(0,calc_BB(BPF,BPR),0,2,4,2);//writes the number 55 for BB  TEST ONLY!!!
 				num_to_digit(0,Clutchtime,1,2,11,2);//writes the number 1,5 for CLU  TEST ONLY!!!
 				num_to_digit(0,ECUVoltage,1,3,10,3);//writes the number 12,4 for Voltage TEST ONLY!!!
-				//string_to_digit(0,error_handling(),0,3);
-				//we need a condition that the diff time only gets shown for a few seconds after the lap is completed
+				difftime = Laptime-Besttime;//calculate the differenz from your best time from your last
 				
-				difftime = Laptime-Besttime;
-				time_to_digit(0,abs(difftime),1,3);
-				dsp_data[0][3][5] = ':';
-				if (difftime >= 0){
-					dsp_data[0][3][0] = '+';
+				if (difftime_old != difftime){//If your diff time has been updated (new Lap) we want to show your diff on the homescreen
+					systime_time_indicator = sys_time;
+					systime_time_indicator += time_indicator_intervall;
+					difftime_old = difftime;
 				}
-				else{
+				if (systime_time_indicator > sys_time){
+					time_to_digit(0,abs(difftime),1,3);
+					dsp_data[0][3][5] = ':';
+					if (difftime >= 0){
+						dsp_data[0][3][0] = '+';
+					}
+					else{
 					dsp_data[0][3][0] = '-';
-				}
-				
-				if (Clutchtime == 0)
-				{ 
+					}
+				}	
+				else{//If the diff time has not been updated within the the last intervall we want to show the error stuff
+					error_handling();
+					string_to_digit(0,error_indicator,0,3);					
+				}		
+					
+				if (Clutchtime == 0){ 
 					string_to_digit(0,"LC ACTIVE",7,2);		
 				}
 			}
@@ -187,7 +202,6 @@ int main(void)
 		if(sys_time - time_100 >= 10){//100Hz/10ms loop
 			CAN_recieve();
 			CAN_put_data();
-			error_handling();
 			time_100 = sys_time;
 			
 		}

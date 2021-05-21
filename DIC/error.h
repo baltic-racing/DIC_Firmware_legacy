@@ -13,8 +13,8 @@
 #define CLT_max 110 //°C
 #define OILP_min 10 //0.1Bar steps
 
-char error_handling();
-char add2strings(char string1[], char string2[]);
+void error_handling();
+void add_error_codes(char *string1[], char *string2[]);
 
 
 #endif /* ERROR_H_ */

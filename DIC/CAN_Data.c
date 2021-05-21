@@ -140,9 +140,9 @@ void CAN_put_data(){
 		ecu4_databytes[2] = 128;
 		ecu4_databytes[3] = 128 >> 8;
 		CMC_databytes[0] = 1;
-		ecu2_databytes[6] = 115;
-		ecu2_databytes[7] = 115 >> 8;
-		ecu2_databytes[4] = 6;
+		ecu2_databytes[6] = 90;
+		ecu2_databytes[7] = 90 >> 8;
+		ecu2_databytes[4] = 15;
 		ecu2_databytes[3] = 110;
 		SWC_databytes[0] = 0;
 		SWC_databytes[1] = 0;
