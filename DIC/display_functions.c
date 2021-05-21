@@ -7,9 +7,10 @@
 
 #include "display_functions.h"
 #include "display_data.h"
+
 #include <avr/io.h>
 #include <string.h>
-
+#include <util/delay.h>
 
 extern uint8_t dsp_data [4][4][20]; 
 extern uint16_t rpm;
@@ -166,4 +167,37 @@ void dsp_init()
 	for (int i=0; i<7;i++){
 		dsp_writedata(dsp_command[i],0);
 	}
+}
+
+void selftest(){
+	rpm = RPM_MAX;
+	long systime_selftest = sys_time;
+	uint8_t LEDS_off = 0;
+	while (systime_selftest+selftest_time >= sys_time)
+	{
+		string_to_digit(0,"     DIC V2.0.1     ",0,0);
+		string_to_digit(0," Proudly presented  ",0,1);
+		string_to_digit(0,"         by         ",0,2);
+		string_to_digit(0,"    Lukas Deeken    ",0,3);
+		dsp_write(0);
+		LED_RPM_Bar();
+		RPM_LED_Blink();		
+	}
+	while (systime_selftest+selftest_time*2 >= sys_time)
+	{
+		string_to_digit(0,"       Welcome      ",0,0);
+		string_to_digit(0,"         to         ",0,1);
+		string_to_digit(0,"        TY20        ",0,2);
+		string_to_digit(0,"The Last of its Kind",0,3);
+		dsp_write(0);
+	
+		if (systime_selftest+selftest_time+LEDS_off*(selftest_time/LED_Count)<= sys_time )
+		{
+			RPM_LED_Register = RPM_LED_Register >> 1;
+			RPM_LED_PORT_1 = RPM_LED_Register;
+			RPM_LED_PORT_2 = RPM_LED_Register >> 8;
+			LEDS_off++;
+		}
+	}
+	dsp_clear();
 }

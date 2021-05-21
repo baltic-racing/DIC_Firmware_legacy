@@ -4,6 +4,8 @@
 
 CAN_Data.c
 
+error.c
+
 generic.c
 
 canlib.c

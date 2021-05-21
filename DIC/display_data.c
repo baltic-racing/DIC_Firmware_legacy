@@ -12,6 +12,7 @@
 #include "canlib.h"
 #include "generic.h"
 #include "display_functions.h"
+#include "string.h"
 
 
 
@@ -219,6 +220,13 @@ void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number){
 	
 };
 
+void string_to_digit(uint8_t dsp_mode, char *string, uint8_t offset_column, uint8_t offset_line){
+
+	for(size_t i = 0; i < strlen(string); i++){
+			
+	dsp_data [dsp_mode][offset_line][offset_column+i] = string[i];	
+		}
+}
 
 //num_to_3digit this function not only converts the raw data to a 3Digit number which can be displayed onto the display, it also sets the Page and Position of the Number on the Display
 void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_column, uint8_t offset_line){
@@ -288,9 +296,7 @@ seconds = seconds % 60;
 	
 };
 
-void dsp_arrayinit(void)
-{
-
+void dsp_clear(void){
 	//init the Display with and empty char
 	for (int i = 0; i<4;i++){
 		for (int s=0;s<20;s++){
@@ -300,37 +306,11 @@ void dsp_arrayinit(void)
 			dsp_data[3][i][s]=0x10;
 		}
 	}
-//OLD Display implementation
-	//STATUSINDICATOR
-	/*
-	// writes =
-	dsp_data[1][3][1] = '=';
-	dsp_data[1][3][8] = '=';
-	dsp_data[1][2][6] = '=';
-	dsp_data[1][2][10] = '=';
-	dsp_data[1][2][14] = '=';
-	
-	// writes C for coolingtemparature
-	dsp_data[1][3][0] = 'C';
-	// writes O
-	dsp_data[1][3][7] = 'O';
-	// writes C
-	dsp_data[1][3][5] =  'C';
-	// writes B
-	dsp_data[1][3][13] = 'B';
-	// writes .
-	dsp_data[1][3][10] = '.';
-	//writes a T for TCS
-	dsp_data[1][2][9] = 'T';
-	//writes a E for error LED
-	dsp_data[1][2][13] = 'E';
-	//0 for RPM
-	dsp_data[1][2][0]= 0x30;
-	dsp_data[1][2][1]= 0x30;
-	dsp_data[1][2][2]= 0x30;
-	dsp_data[1][2][3]= 0x30;
-	*/
-//new home screen
+}
+
+void dsp_arrayinit_static(void)
+{
+//home screen
 	//first argument is the display mode here i is always 0, second number is the row count (4 rows 1-3), 3argument is the Line count 0-20
 	//Names
 	dsp_data[0][0][0] = 'C';

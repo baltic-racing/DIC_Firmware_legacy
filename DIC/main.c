@@ -38,9 +38,9 @@ shutdown LED indicator
 Error detection
 error indication
 error LED blink
-timing display
-debug display
-home display
+timing display						X
+debug display						X
+home display						X
 large RPM display
 TC RPM BAR blink
 TC adjustment !!!
@@ -110,15 +110,16 @@ int main(void)
 {
 	//Init and config part
 	Port_init();
+	sys_timer_config();
 	can_init_messages();
 	dsp_init();
-	dsp_arrayinit();
 	dsp_definechars();
-	sys_timer_config();
 	can_cfg();
-
+	
+	dsp_clear();
 	sei();
-
+	selftest();
+	dsp_arrayinit_static();
 	//Loop
 	while(1){
 
@@ -133,8 +134,9 @@ int main(void)
 				num_to_digit(0,calc_BB(BPF,BPR),0,2,4,2);//writes the number 55 for BB  TEST ONLY!!!
 				num_to_digit(0,Clutchtime,1,2,11,2);//writes the number 1,5 for CLU  TEST ONLY!!!
 				num_to_digit(0,ECUVoltage,1,3,10,3);//writes the number 12,4 for Voltage TEST ONLY!!!
-				
+				//string_to_digit(0,error_handling(),0,3);
 				//we need a condition that the diff time only gets shown for a few seconds after the lap is completed
+				
 				difftime = Laptime-Besttime;
 				time_to_digit(0,abs(difftime),1,3);
 				dsp_data[0][3][5] = ':';
@@ -147,15 +149,7 @@ int main(void)
 				
 				if (Clutchtime == 0)
 				{ 
-					dsp_data[0][2][7] = 'L';
-					dsp_data[0][2][8] = 'C';
-					dsp_data[0][2][9] = 0x10;
-					dsp_data[0][2][10] = 'A';
-					dsp_data[0][2][11] = 'C';
-					dsp_data[0][2][12] = 'T';	
-					dsp_data[0][2][13] = 'I';
-					dsp_data[0][2][14] = 'V';
-					dsp_data[0][2][15] = 'E';				
+					string_to_digit(0,"LC ACTIVE",7,2);		
 				}
 			}
 			if (dsp_mde == 1){ //debug screen
@@ -193,6 +187,7 @@ int main(void)
 		if(sys_time - time_100 >= 10){//100Hz/10ms loop
 			CAN_recieve();
 			CAN_put_data();
+			error_handling();
 			time_100 = sys_time;
 			
 		}

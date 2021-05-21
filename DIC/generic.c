@@ -32,3 +32,5 @@ void sys_timer_config(){
 	TIMSK0 = 0 | (1<<OCF0A);	//compare interrupt enable
 	OCR0A = 250-1;				// compare value for 1ms;
 }
+
+

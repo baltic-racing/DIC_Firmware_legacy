@@ -13,6 +13,9 @@
 #define LED_LEFT  PORTA
 #define LED_RIGHT PORTB
 #define LED_Count 15
+#define selftest_time 1200 //selftest_time in ms take times 2 for actual time
+
+#define F_CPU 16000000
 
 #define RPM_LED_PORT_1 PORTA
 #define RPM_LED_PORT_2 PORTB
@@ -27,5 +30,6 @@ void dsp_definechars();
 void dsp_init();
 void LED_RPM_Bar();
 void RPM_LED_Blink();
+void selftest();
 
 #endif /* DISPLAY_FUNCTIONS_H_ */
