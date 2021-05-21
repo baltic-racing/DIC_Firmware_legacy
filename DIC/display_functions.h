@@ -13,7 +13,7 @@
 #define LED_LEFT  PORTA
 #define LED_RIGHT PORTB
 #define LED_Count 15
-#define selftest_time 1200 //selftest_time in ms take times 2 for actual time
+#define selftest_time 1500 //selftest_time in ms take times 2 for actual time
 
 #define F_CPU 16000000
 

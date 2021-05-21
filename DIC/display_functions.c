@@ -183,7 +183,7 @@ void selftest(){
 		LED_RPM_Bar();
 		RPM_LED_Blink();		
 	}
-	while (systime_selftest+selftest_time*2 >= sys_time)
+	while (systime_selftest+selftest_time*3 >= sys_time)
 	{
 		string_to_digit(0,"       Welcome      ",0,0);
 		string_to_digit(0,"         to         ",0,1);
