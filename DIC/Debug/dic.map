@@ -95,9 +95,6 @@ Discarded input sections
  .text          0x00000000        0x0 display_functions.o
  .data          0x00000000        0x0 display_functions.o
  .bss           0x00000000        0x0 display_functions.o
- .rodata        0x00000000       0xa8 display_functions.o
- .text.selftest
-                0x00000000      0x1c2 display_functions.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -281,8 +278,6 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/b
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/at90can128/avr51\libat90can128.a
 END GROUP
-                0x00000000                __TEXT_REGION_ORIGIN__ = DEFINED (__TEXT_REGION_ORIGIN__)?__TEXT_REGION_ORIGIN__:0x0
-                0x00800100                __DATA_REGION_ORIGIN__ = DEFINED (__DATA_REGION_ORIGIN__)?__DATA_REGION_ORIGIN__:0x800100
                 0x00020000                __TEXT_REGION_LENGTH__ = DEFINED (__TEXT_REGION_LENGTH__)?__TEXT_REGION_LENGTH__:0x20000
                 0x0000ff00                __DATA_REGION_LENGTH__ = DEFINED (__DATA_REGION_LENGTH__)?__DATA_REGION_LENGTH__:0xff00
                 0x00010000                __EEPROM_REGION_LENGTH__ = DEFINED (__EEPROM_REGION_LENGTH__)?__EEPROM_REGION_LENGTH__:0x10000
@@ -381,7 +376,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x32c6
+.text           0x00000000     0x33da
  *(.vectors)
  .vectors       0x00000000       0x94 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/at90can128/avr51/crtat90can128.o
                 0x00000000                __vector_default
@@ -487,136 +482,139 @@ END GROUP
                 0x0000023a       0x7e CAN_Data.o
                 0x0000023a                CAN_recieve
  .text.CAN_put_data
-                0x000002b8      0x43c CAN_Data.o
+                0x000002b8      0x364 CAN_Data.o
                 0x000002b8                CAN_put_data
  .text.error_handling
-                0x000006f4       0xa8 error.o
-                0x000006f4                error_handling
+                0x0000061c       0xe4 error.o
+                0x0000061c                error_handling
  .text.add_error_codes
-                0x0000079c      0x196 error.o
-                0x0000079c                add_error_codes
+                0x00000700      0x196 error.o
+                0x00000700                add_error_codes
  .text.Port_init
-                0x00000932       0x5a generic.o
-                0x00000932                Port_init
+                0x00000896       0x5a generic.o
+                0x00000896                Port_init
  .text.sys_timer_config
-                0x0000098c       0x2e generic.o
-                0x0000098c                sys_timer_config
+                0x000008f0       0x2e generic.o
+                0x000008f0                sys_timer_config
  .text.can_check_free
-                0x000009ba       0x7a canlib.o
-                0x000009ba                can_check_free
- .text.can_cfg  0x00000a34      0x10c canlib.o
-                0x00000a34                can_cfg
- .text.can_rx   0x00000b40      0x13e canlib.o
-                0x00000b40                can_rx
- .text.calc_BB  0x00000c7e      0x10e display_data.o
-                0x00000c7e                calc_BB
+                0x0000091e       0x7a canlib.o
+                0x0000091e                can_check_free
+ .text.can_cfg  0x00000998      0x10c canlib.o
+                0x00000998                can_cfg
+ .text.can_rx   0x00000aa4      0x13e canlib.o
+                0x00000aa4                can_rx
+ .text.calc_BB  0x00000be2      0x10e display_data.o
+                0x00000be2                calc_BB
  .text.large_number
-                0x00000d8c      0xf0c display_data.o
-                0x00000d8c                large_number
+                0x00000cf0      0xf0c display_data.o
+                0x00000cf0                large_number
  .text.string_to_digit
-                0x00001c98       0xa8 display_data.o
-                0x00001c98                string_to_digit
+                0x00001bfc       0xa8 display_data.o
+                0x00001bfc                string_to_digit
  .text.num_to_digit
-                0x00001d40      0x244 display_data.o
-                0x00001d40                num_to_digit
+                0x00001ca4      0x244 display_data.o
+                0x00001ca4                num_to_digit
  .text.time_to_digit
-                0x00001f84      0x344 display_data.o
-                0x00001f84                time_to_digit
+                0x00001ee8      0x344 display_data.o
+                0x00001ee8                time_to_digit
  .text.dsp_clear
-                0x000022c8       0xd8 display_data.o
-                0x000022c8                dsp_clear
+                0x0000222c       0xd8 display_data.o
+                0x0000222c                dsp_clear
  .text.dsp_arrayinit_static
-                0x000023a0      0x1a8 display_data.o
-                0x000023a0                dsp_arrayinit_static
+                0x00002304      0x1a8 display_data.o
+                0x00002304                dsp_arrayinit_static
  .text.LED_RPM_Bar
-                0x00002548       0xa6 display_functions.o
-                0x00002548                LED_RPM_Bar
+                0x000024ac       0xa6 display_functions.o
+                0x000024ac                LED_RPM_Bar
  .text.RPM_LED_Blink
-                0x000025ee      0x130 display_functions.o
-                0x000025ee                RPM_LED_Blink
+                0x00002552      0x130 display_functions.o
+                0x00002552                RPM_LED_Blink
  .text.dsp_writedata
-                0x0000271e       0x94 display_functions.o
-                0x0000271e                dsp_writedata
+                0x00002682       0x94 display_functions.o
+                0x00002682                dsp_writedata
  .text.dsp_customchar
-                0x000027b2       0x96 display_functions.o
-                0x000027b2                dsp_customchar
+                0x00002716       0x96 display_functions.o
+                0x00002716                dsp_customchar
  .text.dsp_write
-                0x00002848       0x9e display_functions.o
-                0x00002848                dsp_write
+                0x000027ac       0x9e display_functions.o
+                0x000027ac                dsp_write
  .text.dsp_definechars
-                0x000028e6      0x11a display_functions.o
-                0x000028e6                dsp_definechars
+                0x0000284a      0x11a display_functions.o
+                0x0000284a                dsp_definechars
  .text.dsp_init
-                0x00002a00       0x3e display_functions.o
-                0x00002a00                dsp_init
+                0x00002964       0x3e display_functions.o
+                0x00002964                dsp_init
+ .text.selftest
+                0x000029a2      0x1a8 display_functions.o
+                0x000029a2                selftest
  .text.__vector_16
-                0x00002a3e       0x6c main.o
-                0x00002a3e                __vector_16
- .text.main     0x00002aaa      0x460 main.o
-                0x00002aaa                main
+                0x00002b4a       0x6c main.o
+                0x00002b4a                __vector_16
+ .text.main     0x00002bb6      0x468 main.o
+                0x00002bb6                main
  .text.avr-libc.fplib
-                0x00002f0a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3.o)
-                0x00002f0a                __divsf3
+                0x0000301e        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3.o)
+                0x0000301e                __divsf3
  .text.avr-libc.fplib
-                0x00002f0e       0xcc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3x.o)
-                0x00002f24                __divsf3x
-                0x00002f28                __divsf3_pse
+                0x00003022       0xcc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(divsf3x.o)
+                0x00003038                __divsf3x
+                0x0000303c                __divsf3_pse
  .text.avr-libc.fplib
-                0x00002fda       0x58 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fixunssfsi.o)
-                0x00002fda                __fixunssfsi
+                0x000030ee       0x58 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fixunssfsi.o)
+                0x000030ee                __fixunssfsi
  .text.avr-libc.fplib
-                0x00003032       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(floatsisf.o)
-                0x00003032                __floatunsisf
-                0x00003036                __floatsisf
+                0x00003146       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(floatsisf.o)
+                0x00003146                __floatunsisf
+                0x0000314a                __floatsisf
  .text.avr-libc.fplib
-                0x000030ac        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_inf.o)
-                0x000030ac                __fp_inf
+                0x000031c0        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_inf.o)
+                0x000031c0                __fp_inf
  .text.avr-libc.fplib
-                0x000030b8        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_nan.o)
-                0x000030b8                __fp_nan
+                0x000031cc        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_nan.o)
+                0x000031cc                __fp_nan
  .text.avr-libc.fplib
-                0x000030be        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscA.o)
-                0x000030be                __fp_pscA
+                0x000031d2        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscA.o)
+                0x000031d2                __fp_pscA
  .text.avr-libc.fplib
-                0x000030cc        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscB.o)
-                0x000030cc                __fp_pscB
+                0x000031e0        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_pscB.o)
+                0x000031e0                __fp_pscB
  .text.avr-libc.fplib
-                0x000030da       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_round.o)
-                0x000030da                __fp_round
+                0x000031ee       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_round.o)
+                0x000031ee                __fp_round
  .text.avr-libc.fplib
-                0x000030fc       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_split3.o)
-                0x000030fc                __fp_split3
-                0x0000310c                __fp_splitA
+                0x00003210       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_split3.o)
+                0x00003210                __fp_split3
+                0x00003220                __fp_splitA
  .text.avr-libc.fplib
-                0x00003140        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
-                0x00003140                __fp_zero
-                0x00003142                __fp_szero
+                0x00003254        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(fp_zero.o)
+                0x00003254                __fp_zero
+                0x00003256                __fp_szero
  .text.avr-libc.fplib
-                0x0000314e        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
-                0x0000314e                __mulsf3
+                0x00003262        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3.o)
+                0x00003262                __mulsf3
  .text.avr-libc.fplib
-                0x00003152       0xc2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
-                0x00003166                __mulsf3x
-                0x0000316a                __mulsf3_pse
+                0x00003266       0xc2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libm.a(mulsf3x.o)
+                0x0000327a                __mulsf3x
+                0x0000327e                __mulsf3_pse
  .text.libgcc.div
-                0x00003214       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
-                0x00003214                __udivmodhi4
+                0x00003328       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+                0x00003328                __udivmodhi4
  .text.libgcc.div
-                0x0000323c       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodsi4.o)
-                0x0000323c                __udivmodsi4
- .text.libgcc   0x00003280       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
-                0x00003280                __tablejump2__
+                0x00003350       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodsi4.o)
+                0x00003350                __udivmodsi4
+ .text.libgcc   0x00003394       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
+                0x00003394                __tablejump2__
  .text.libgcc.mul
-                0x00003292       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_umulhisi3.o)
-                0x00003292                __umulhisi3
+                0x000033a6       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_umulhisi3.o)
+                0x000033a6                __umulhisi3
  .text.avr-libc
-                0x000032b0       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strlen.o)
-                0x000032b0                strlen
-                0x000032c2                . = ALIGN (0x2)
+                0x000033c4       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strlen.o)
+                0x000033c4                strlen
+                0x000033d6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000032c2        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x000032c2                _exit
-                0x000032c2                exit
+ .fini9         0x000033d6        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x000033d6                _exit
+                0x000033d6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -635,11 +633,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000032c2        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x000033d6        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x000032c6                _etext = .
+                0x000033da                _etext = .
 
-.data           0x00800100       0x26 load address 0x000032c6
+.data           0x00800100       0xce load address 0x000033da
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -652,185 +650,186 @@ END GROUP
  *(.gnu.linkonce.d*)
  *(.rodata)
  .rodata        0x0080010b       0x10 error.o
- .rodata        0x0080011b        0xa main.o
+ .rodata        0x0080011b       0xa8 display_functions.o
+ .rodata        0x008001c3        0xa main.o
  *(.rodata*)
  *(.gnu.linkonce.r*)
-                0x00800126                . = ALIGN (0x2)
- *fill*         0x00800125        0x1 
-                0x00800126                _edata = .
-                0x00800126                PROVIDE (__data_end, .)
+                0x008001ce                . = ALIGN (0x2)
+ *fill*         0x008001cd        0x1 
+                0x008001ce                _edata = .
+                0x008001ce                PROVIDE (__data_end, .)
 
-.bss            0x00800126      0x258
-                0x00800126                PROVIDE (__bss_start, .)
+.bss            0x008001ce      0x258
+                0x008001ce                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.Rotary_Encoder_Right
-                0x00800126        0x1 CAN_Data.o
-                0x00800126                Rotary_Encoder_Right
+                0x008001ce        0x1 CAN_Data.o
+                0x008001ce                Rotary_Encoder_Right
  .bss.Rotary_Encoder_Left
-                0x00800127        0x1 CAN_Data.o
-                0x00800127                Rotary_Encoder_Left
- .bss.rpm       0x00800128        0x2 CAN_Data.o
-                0x00800128                rpm
- .bss.gear      0x0080012a        0x1 CAN_Data.o
-                0x0080012a                gear
- .bss.CLT       0x0080012b        0x1 CAN_Data.o
-                0x0080012b                CLT
- .bss.OILP      0x0080012c        0x1 CAN_Data.o
-                0x0080012c                OILP
- .bss.OILT      0x0080012d        0x1 CAN_Data.o
-                0x0080012d                OILT
+                0x008001cf        0x1 CAN_Data.o
+                0x008001cf                Rotary_Encoder_Left
+ .bss.rpm       0x008001d0        0x2 CAN_Data.o
+                0x008001d0                rpm
+ .bss.gear      0x008001d2        0x1 CAN_Data.o
+                0x008001d2                gear
+ .bss.CLT       0x008001d3        0x1 CAN_Data.o
+                0x008001d3                CLT
+ .bss.OILP      0x008001d4        0x1 CAN_Data.o
+                0x008001d4                OILP
+ .bss.OILT      0x008001d5        0x1 CAN_Data.o
+                0x008001d5                OILT
  .bss.BrakeBias
-                0x0080012e        0x1 CAN_Data.o
-                0x0080012e                BrakeBias
+                0x008001d6        0x1 CAN_Data.o
+                0x008001d6                BrakeBias
  .bss.Clutchtime
-                0x0080012f        0x1 CAN_Data.o
-                0x0080012f                Clutchtime
+                0x008001d7        0x1 CAN_Data.o
+                0x008001d7                Clutchtime
  .bss.ECUVoltage
-                0x00800130        0x1 CAN_Data.o
-                0x00800130                ECUVoltage
- .bss.TPS1      0x00800131        0x1 CAN_Data.o
-                0x00800131                TPS1
- .bss.TPS2      0x00800132        0x1 CAN_Data.o
-                0x00800132                TPS2
- .bss.TPSE      0x00800133        0x1 CAN_Data.o
-                0x00800133                TPSE
- .bss.APPS1     0x00800134        0x1 CAN_Data.o
-                0x00800134                APPS1
- .bss.APPS2     0x00800135        0x1 CAN_Data.o
-                0x00800135                APPS2
- .bss.BPF       0x00800136        0x1 CAN_Data.o
-                0x00800136                BPF
- .bss.BPR       0x00800137        0x1 CAN_Data.o
-                0x00800137                BPR
+                0x008001d8        0x1 CAN_Data.o
+                0x008001d8                ECUVoltage
+ .bss.TPS1      0x008001d9        0x1 CAN_Data.o
+                0x008001d9                TPS1
+ .bss.TPS2      0x008001da        0x1 CAN_Data.o
+                0x008001da                TPS2
+ .bss.TPSE      0x008001db        0x1 CAN_Data.o
+                0x008001db                TPSE
+ .bss.APPS1     0x008001dc        0x1 CAN_Data.o
+                0x008001dc                APPS1
+ .bss.APPS2     0x008001dd        0x1 CAN_Data.o
+                0x008001dd                APPS2
+ .bss.BPF       0x008001de        0x1 CAN_Data.o
+                0x008001de                BPF
+ .bss.BPR       0x008001df        0x1 CAN_Data.o
+                0x008001df                BPR
  .bss.LapNumber
-                0x00800138        0x1 CAN_Data.o
-                0x00800138                LapNumber
- .bss.Laptime   0x00800139        0x4 CAN_Data.o
-                0x00800139                Laptime
+                0x008001e0        0x1 CAN_Data.o
+                0x008001e0                LapNumber
+ .bss.Laptime   0x008001e1        0x4 CAN_Data.o
+                0x008001e1                Laptime
  .bss.Laptime_1
-                0x0080013d        0x1 CAN_Data.o
-                0x0080013d                Laptime_1
+                0x008001e5        0x1 CAN_Data.o
+                0x008001e5                Laptime_1
  .bss.Laptime_2
-                0x0080013e        0x2 CAN_Data.o
-                0x0080013e                Laptime_2
+                0x008001e6        0x2 CAN_Data.o
+                0x008001e6                Laptime_2
  .bss.Laptime_3
-                0x00800140        0x4 CAN_Data.o
-                0x00800140                Laptime_3
+                0x008001e8        0x4 CAN_Data.o
+                0x008001e8                Laptime_3
  .bss.Laptime_4
-                0x00800144        0x4 CAN_Data.o
-                0x00800144                Laptime_4
- .bss.Besttime  0x00800148        0x4 CAN_Data.o
-                0x00800148                Besttime
+                0x008001ec        0x4 CAN_Data.o
+                0x008001ec                Laptime_4
+ .bss.Besttime  0x008001f0        0x4 CAN_Data.o
+                0x008001f0                Besttime
  .bss.Besttime_1
-                0x0080014c        0x1 CAN_Data.o
-                0x0080014c                Besttime_1
+                0x008001f4        0x1 CAN_Data.o
+                0x008001f4                Besttime_1
  .bss.Besttime_2
-                0x0080014d        0x2 CAN_Data.o
-                0x0080014d                Besttime_2
+                0x008001f5        0x2 CAN_Data.o
+                0x008001f5                Besttime_2
  .bss.Besttime_3
-                0x0080014f        0x4 CAN_Data.o
-                0x0080014f                Besttime_3
+                0x008001f7        0x4 CAN_Data.o
+                0x008001f7                Besttime_3
  .bss.Besttime_4
-                0x00800153        0x4 CAN_Data.o
-                0x00800153                Besttime_4
+                0x008001fb        0x4 CAN_Data.o
+                0x008001fb                Besttime_4
  .bss.Pred_time
-                0x00800157        0x4 CAN_Data.o
-                0x00800157                Pred_time
+                0x008001ff        0x4 CAN_Data.o
+                0x008001ff                Pred_time
  .bss.Pred_time_1
-                0x0080015b        0x1 CAN_Data.o
-                0x0080015b                Pred_time_1
+                0x00800203        0x1 CAN_Data.o
+                0x00800203                Pred_time_1
  .bss.Pred_time_2
-                0x0080015c        0x2 CAN_Data.o
-                0x0080015c                Pred_time_2
+                0x00800204        0x2 CAN_Data.o
+                0x00800204                Pred_time_2
  .bss.Pred_time_3
-                0x0080015e        0x4 CAN_Data.o
-                0x0080015e                Pred_time_3
+                0x00800206        0x4 CAN_Data.o
+                0x00800206                Pred_time_3
  .bss.Pred_time_4
-                0x00800162        0x4 CAN_Data.o
-                0x00800162                Pred_time_4
- .bss.ODO       0x00800166        0x2 CAN_Data.o
-                0x00800166                ODO
+                0x0080020a        0x4 CAN_Data.o
+                0x0080020a                Pred_time_4
+ .bss.ODO       0x0080020e        0x2 CAN_Data.o
+                0x0080020e                ODO
  .bss.GPS_Speed
-                0x00800168        0x2 CAN_Data.o
-                0x00800168                GPS_Speed
+                0x00800210        0x2 CAN_Data.o
+                0x00800210                GPS_Speed
  .bss.error_indicator
-                0x0080016a        0xa error.o
-                0x0080016a                error_indicator
- .bss.BB        0x00800174        0x4 display_data.o
-                0x00800174                BB
+                0x00800212        0xa error.o
+                0x00800212                error_indicator
+ .bss.BB        0x0080021c        0x4 display_data.o
+                0x0080021c                BB
  .bss.sys_time_blink
-                0x00800178        0x4 display_functions.o
-                0x00800178                sys_time_blink
- .bss.counter   0x0080017c        0x1 display_functions.o
-                0x0080017c                counter
+                0x00800220        0x4 display_functions.o
+                0x00800220                sys_time_blink
+ .bss.counter   0x00800224        0x1 display_functions.o
+                0x00800224                counter
  .bss.dsp_linecounter
-                0x0080017d        0x1 display_functions.o
-                0x0080017d                dsp_linecounter
+                0x00800225        0x1 display_functions.o
+                0x00800225                dsp_linecounter
  .bss.RPM_divider
-                0x0080017e        0x2 display_functions.o
-                0x0080017e                RPM_divider
+                0x00800226        0x2 display_functions.o
+                0x00800226                RPM_divider
  .bss.LED_active
-                0x00800180        0x1 display_functions.o
-                0x00800180                LED_active
- .bss.dsp_mde   0x00800181        0x1 main.o
-                0x00800181                dsp_mde
+                0x00800228        0x1 display_functions.o
+                0x00800228                LED_active
+ .bss.dsp_mde   0x00800229        0x1 main.o
+                0x00800229                dsp_mde
  .bss.update_data
-                0x00800182        0x1 main.o
-                0x00800182                update_data
+                0x0080022a        0x1 main.o
+                0x0080022a                update_data
  .bss.draw_data
-                0x00800183        0x1 main.o
-                0x00800183                draw_data
- .bss.time_100  0x00800184        0x1 main.o
-                0x00800184                time_100
- .bss.sys_time  0x00800185        0x4 main.o
-                0x00800185                sys_time
+                0x0080022b        0x1 main.o
+                0x0080022b                draw_data
+ .bss.time_100  0x0080022c        0x1 main.o
+                0x0080022c                time_100
+ .bss.sys_time  0x0080022d        0x4 main.o
+                0x0080022d                sys_time
  .bss.systime_time_indicator
-                0x00800189        0x4 main.o
-                0x00800189                systime_time_indicator
- .bss.difftime  0x0080018d        0x4 main.o
-                0x0080018d                difftime
+                0x00800231        0x4 main.o
+                0x00800231                systime_time_indicator
+ .bss.difftime  0x00800235        0x4 main.o
+                0x00800235                difftime
  .bss.difftime_old
-                0x00800191        0x4 main.o
-                0x00800191                difftime_old
+                0x00800239        0x4 main.o
+                0x00800239                difftime_old
  *(COMMON)
- COMMON         0x00800195       0x8f CAN_Data.o
-                0x00800195                Logger1_databytes
-                0x0080019d                can_Logger2_mob
-                0x008001a2                Logger2_databytes
-                0x008001aa                CMC_databytes
-                0x008001b2                can_ecu0_mob
-                0x008001b7                can_SHR0_mob
-                0x008001bc                can_CMC_mob
-                0x008001c1                can_SHL0_mob
-                0x008001c6                SHR0_databytes
-                0x008001ce                can_Logger1_mob
-                0x008001d3                SHL0_databytes
-                0x008001db                can_Logger0_mob
-                0x008001e0                ecu2_databytes
-                0x008001e8                ETC_databytes
-                0x008001f0                can_ecu2_mob
-                0x008001f5                Logger0_databytes
-                0x008001fd                can_SWC_mob
-                0x00800202                can_ETC_mob
-                0x00800207                ecu0_databytes
-                0x0080020f                SWC_databytes
-                0x00800217                ecu4_databytes
-                0x0080021f                can_ecu4_mob
- COMMON         0x00800224      0x140 display_data.o
-                0x00800224                dsp_data
- COMMON         0x00800364       0x1a display_functions.o
-                0x00800364                RPM_LED_Register
-                0x00800366                rpm_ranges
-                0x0080037e                PROVIDE (__bss_end, .)
-                0x000032c6                __data_load_start = LOADADDR (.data)
-                0x000032ec                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080023d       0x8f CAN_Data.o
+                0x0080023d                Logger1_databytes
+                0x00800245                can_Logger2_mob
+                0x0080024a                Logger2_databytes
+                0x00800252                CMC_databytes
+                0x0080025a                can_ecu0_mob
+                0x0080025f                can_SHR0_mob
+                0x00800264                can_CMC_mob
+                0x00800269                can_SHL0_mob
+                0x0080026e                SHR0_databytes
+                0x00800276                can_Logger1_mob
+                0x0080027b                SHL0_databytes
+                0x00800283                can_Logger0_mob
+                0x00800288                ecu2_databytes
+                0x00800290                ETC_databytes
+                0x00800298                can_ecu2_mob
+                0x0080029d                Logger0_databytes
+                0x008002a5                can_SWC_mob
+                0x008002aa                can_ETC_mob
+                0x008002af                ecu0_databytes
+                0x008002b7                SWC_databytes
+                0x008002bf                ecu4_databytes
+                0x008002c7                can_ecu4_mob
+ COMMON         0x008002cc      0x140 display_data.o
+                0x008002cc                dsp_data
+ COMMON         0x0080040c       0x1a display_functions.o
+                0x0080040c                RPM_LED_Register
+                0x0080040e                rpm_ranges
+                0x00800426                PROVIDE (__bss_end, .)
+                0x000033da                __data_load_start = LOADADDR (.data)
+                0x000034a8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080037e        0x0
+.noinit         0x00800426        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x0080037e                _end = .
+                0x00800426                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -921,16 +920,16 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1dac
+.debug_info     0x00000000     0x1dc4
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xa2d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/at90can128/avr51/crtat90can128.o
  .debug_info    0x00000a2d      0x51f CAN_Data.o
- .debug_info    0x00000f4c      0x198 error.o
- .debug_info    0x000010e4       0x98 generic.o
- .debug_info    0x0000117c      0x1da canlib.o
- .debug_info    0x00001356      0x3ec display_data.o
- .debug_info    0x00001742      0x34e display_functions.o
- .debug_info    0x00001a90      0x31c main.o
+ .debug_info    0x00000f4c      0x1b0 error.o
+ .debug_info    0x000010fc       0x98 generic.o
+ .debug_info    0x00001194      0x1da canlib.o
+ .debug_info    0x0000136e      0x3ec display_data.o
+ .debug_info    0x0000175a      0x34e display_functions.o
+ .debug_info    0x00001aa8      0x31c main.o
 
 .debug_abbrev   0x00000000     0x1088
  *(.debug_abbrev)
@@ -943,16 +942,16 @@ END GROUP
  .debug_abbrev  0x00000e3a      0x142 display_functions.o
  .debug_abbrev  0x00000f7c      0x10c main.o
 
-.debug_line     0x00000000     0x1841
+.debug_line     0x00000000     0x1769
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x175 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/at90can128/avr51/crtat90can128.o
- .debug_line    0x00000175      0x39e CAN_Data.o
- .debug_line    0x00000513      0x210 error.o
- .debug_line    0x00000723       0xf6 generic.o
- .debug_line    0x00000819      0x2be canlib.o
- .debug_line    0x00000ad7      0x7a6 display_data.o
- .debug_line    0x0000127d      0x383 display_functions.o
- .debug_line    0x00001600      0x241 main.o
+ .debug_line    0x00000175      0x2c0 CAN_Data.o
+ .debug_line    0x00000435      0x210 error.o
+ .debug_line    0x00000645       0xf6 generic.o
+ .debug_line    0x0000073b      0x2be canlib.o
+ .debug_line    0x000009f9      0x7a6 display_data.o
+ .debug_line    0x0000119f      0x383 display_functions.o
+ .debug_line    0x00001522      0x247 main.o
 
 .debug_frame    0x00000000      0x4ac
  *(.debug_frame)
@@ -964,23 +963,23 @@ END GROUP
  .debug_frame   0x000002cc      0x15c display_functions.o
  .debug_frame   0x00000428       0x84 main.o
 
-.debug_str      0x00000000      0xb19
+.debug_str      0x00000000      0xb25
  *(.debug_str)
  .debug_str     0x00000000      0x39f C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/at90can128/avr51/crtat90can128.o
- .debug_str     0x0000039f      0x41f CAN_Data.o
-                                0x453 (size before relaxing)
- .debug_str     0x000007be       0x5c error.o
-                                0x1e0 (size before relaxing)
- .debug_str     0x0000081a       0x2a generic.o
-                                0x194 (size before relaxing)
- .debug_str     0x00000844       0x5d canlib.o
-                                0x1fa (size before relaxing)
- .debug_str     0x000008a1       0xd5 display_data.o
-                                0x27b (size before relaxing)
- .debug_str     0x00000976      0x13a display_functions.o
-                                0x2de (size before relaxing)
- .debug_str     0x00000ab0       0x69 main.o
-                                0x2ce (size before relaxing)
+ .debug_str     0x0000039f      0x42b CAN_Data.o
+                                0x45f (size before relaxing)
+ .debug_str     0x000007ca       0x5c error.o
+                                0x1f5 (size before relaxing)
+ .debug_str     0x00000826       0x2a generic.o
+                                0x1a0 (size before relaxing)
+ .debug_str     0x00000850       0x5d canlib.o
+                                0x206 (size before relaxing)
+ .debug_str     0x000008ad       0xd5 display_data.o
+                                0x287 (size before relaxing)
+ .debug_str     0x00000982      0x13a display_functions.o
+                                0x2ea (size before relaxing)
+ .debug_str     0x00000abc       0x69 main.o
+                                0x2da (size before relaxing)
 
 .debug_loc      0x00000000      0x8df
  *(.debug_loc)

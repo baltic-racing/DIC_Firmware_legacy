@@ -12,6 +12,7 @@ extern uint8_t CLT;
 extern uint8_t OILP;
 extern uint8_t OILT;
 char error_indicator[10] = "";
+extern uint16_t rpm;
 
 
 
@@ -23,10 +24,10 @@ void error_handling(){
 		error_indicator[i] = 0;
 	}
 	//Errormessages need always to end with an ! otherwise the function will not work due to the 255 in the if in the for loop in add_error_codes
-	if (CLT >= CLT_max){
+	if (CLT >= CLT_max & rpm >= 300){
 		add_error_codes(error_indicator, "CLT!");
 	}
-	if(OILP <= OILP_min){
+	if(OILP <= OILP_min & rpm >= 300){
 		add_error_codes(error_indicator, "OILP!");
 	}
 	if(error_indicator[1]==0){

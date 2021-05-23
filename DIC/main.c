@@ -125,7 +125,7 @@ int main(void)
 	
 	dsp_clear();
 	sei();
-	//selftest();
+	selftest();
 	dsp_arrayinit_static();
 	//Loop
 	while(1){

@@ -137,6 +137,7 @@ void CAN_recieve(){
 
 void CAN_put_data(){
 		// Testdata comment when display is in car
+		/*
 		ecu4_databytes[2] = 128;
 		ecu4_databytes[3] = 128 >> 8;
 		CMC_databytes[0] = 1;
@@ -180,7 +181,7 @@ void CAN_put_data(){
 		Logger2_databytes[7] = 96<<8;
 		
 		Logger0_databytes[0] = 42;
-		
+		*/
 	Rotary_Encoder_Right = SWC_databytes[0];
 	Rotary_Encoder_Left = SWC_databytes[1];
 	dsp_mde = Rotary_Encoder_Right;
@@ -191,13 +192,13 @@ void CAN_put_data(){
 	OILP = ecu2_databytes[4];
 	OILT = ecu2_databytes[3];
 	BrakeBias = 0;
-	ECUVoltage = ecu4_databytes[3] << 8 | ecu4_databytes[2];
+	ECUVoltage = (ecu4_databytes[3] << 8 | ecu4_databytes[2])*0,58;//Measured within ecumaster studio
 	
 	TPS1 = ETC_databytes[2];
 	TPS2 = ETC_databytes[3];
 	TPSE = ecu0_databytes[2];
-	APPS1 =ETC_databytes[1];
-	APPS2 = ETC_databytes[2];
+	APPS1 =ETC_databytes[0];
+	APPS2 = ETC_databytes[1];
 	BPF = SHR0_databytes[1] << 8 | SHR0_databytes[0];
 	BPR = SHL0_databytes[3] << 8 | SHL0_databytes[2];
 	//For some weird reason the length of the variable that gets shifted seems to matter, atleast in this usecase, with for e.g BPF etc it works fine which may be becouse we are actually only transmitting an 8 bit value
