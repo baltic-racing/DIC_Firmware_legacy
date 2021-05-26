@@ -24,7 +24,7 @@ uint16_t OILP = 0;
 uint8_t OILT = 0;
 uint8_t BrakeBias = 0;
 uint8_t Clutchtime = 0;
-uint8_t ECUVoltage = 0;
+uint16_t ECUVoltage = 0;
 uint8_t TPS1 = 0;
 uint8_t TPS2 = 0;
 uint8_t TPSE = 0;
@@ -192,7 +192,7 @@ void CAN_put_data(){
 	OILP = ecu2_databytes[4] * 6.25;
 	OILT = ecu2_databytes[3];
 	BrakeBias = 0;
-	ECUVoltage = (ecu4_databytes[3] << 8 | ecu4_databytes[2])*0.58; //Measured within ecumaster studio results in 0.1V resolution
+	ECUVoltage = (ecu4_databytes[3] << 8 | ecu4_databytes[2])*0.27; //Measured within ecumaster studio results in 0.1V resolution
 	
 	TPS1 = ETC_databytes[2];
 	TPS2 = ETC_databytes[3];

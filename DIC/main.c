@@ -81,11 +81,11 @@ unsigned long systime_time_indicator = 0;
 //Global Variables -> extern indicates that variables are defined in another File always use extern except the file where the Variabel is first deklared
 extern uint8_t Rotary_Encoder_Right;
 extern uint8_t gear;
-extern uint8_t CLT;
-extern uint8_t OILP;
+extern uint16_t CLT;
+extern uint16_t OILP;
 extern uint8_t OILT;
 extern uint8_t Clutchtime;
-extern uint8_t ECUVoltage;
+extern uint16_t ECUVoltage;
 extern uint8_t TPS1;
 extern uint8_t TPS2;
 extern uint8_t TPSE;
@@ -160,7 +160,7 @@ int main(void)
 				}	
 				else{//If the diff time has not been updated within the the last intervall we want to show the error stuff
 					error_handling();
-					string_to_digit(0,error_indicator,0,3);					
+					//string_to_digit(0,error_indicator,0,3);					
 				}		
 					
 				if (Clutchtime == 0){ 

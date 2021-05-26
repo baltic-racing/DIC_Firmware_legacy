@@ -8,10 +8,10 @@
 #include "error.h"
 #include <string.h>
 
-extern uint8_t CLT;
-extern uint8_t OILP;
+extern uint16_t CLT;
+extern uint16_t OILP;
 extern uint8_t OILT;
-extern uint8_t ECUVoltage;
+extern uint16_t ECUVoltage;
 char error_indicator[10] = "";
 extern uint16_t rpm;
 
@@ -21,7 +21,7 @@ extern uint16_t rpm;
 //This functions checks for all possible error states, assignes a string or chracter to them and builds a string from them that an be shown in the error field on the home screen
 void error_handling(){
 	//Clear the Error Messages before we write new ones into the error storage
-	for (int8_t i = 10; i>=0;i--){
+	for (int8_t i = 11;i>=0;i--){
 		error_indicator[i] = 0;
 	}
 	//Errormessages need always to end with an ! otherwise the function will not work due to the 255 in the if in the for loop in add_error_codes
