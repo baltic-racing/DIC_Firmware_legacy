@@ -10,8 +10,11 @@
 #ifndef ERROR_H_
 #define ERROR_H_
 
-#define CLT_max 110 //°C
+#define CLT_max 115 //°C
+#define	CLT_min 60 //°C
 #define OILP_min 10 //0.1Bar steps
+#define Volt_max 150 //0.1V
+#define Volt_min 120 //0.1V
 
 void error_handling();
 void add_error_codes(char *string1[], char *string2[]);

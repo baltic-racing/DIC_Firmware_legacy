@@ -19,8 +19,8 @@ uint8_t Rotary_Encoder_Right = 0;
 uint8_t Rotary_Encoder_Left = 0;
 uint16_t rpm = 0;
 uint8_t gear = 0;
-uint8_t CLT = 0;
-uint8_t OILP = 0;
+uint16_t CLT = 0;
+uint16_t OILP = 0;
 uint8_t OILT = 0;
 uint8_t BrakeBias = 0;
 uint8_t Clutchtime = 0;
@@ -189,10 +189,10 @@ void CAN_put_data(){
 	rpm = ecu0_databytes[1] << 8 | ecu0_databytes[0];
 	gear = CMC_databytes[0];
 	CLT = ecu2_databytes[7] << 8 | ecu2_databytes[6];
-	OILP = ecu2_databytes[4];
+	OILP = ecu2_databytes[4] * 6.25;
 	OILT = ecu2_databytes[3];
 	BrakeBias = 0;
-	ECUVoltage = (ecu4_databytes[3] << 8 | ecu4_databytes[2])*0,58;//Measured within ecumaster studio
+	ECUVoltage = (ecu4_databytes[3] << 8 | ecu4_databytes[2])*0.58; //Measured within ecumaster studio results in 0.1V resolution
 	
 	TPS1 = ETC_databytes[2];
 	TPS2 = ETC_databytes[3];
