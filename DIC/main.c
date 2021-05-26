@@ -99,6 +99,7 @@ extern uint32_t Pred_time;
 extern uint16_t ODO;
 extern uint16_t GPS_Speed;
 extern uint8_t LapNumber;
+uint8_t LC_change = 1;
 
 extern char error_indicator[];
 
@@ -139,7 +140,6 @@ int main(void)
 				num_to_digit(0,OILT,0,3,11,1);//writes the number 113 for OilT TEST ONLY!!!
 				num_to_digit(0,OILP,1,2,4,1);//writes the number 5,6 for oil Pressure TEST ONLY!!!
 				num_to_digit(0,calc_BB(BPF,BPR),0,2,4,2);//writes the number 55 for BB  TEST ONLY!!!
-				num_to_digit(0,Clutchtime,1,2,11,2);//writes the number 1,5 for CLU  TEST ONLY!!!
 				num_to_digit(0,ECUVoltage,1,3,10,3);//writes the number 12,4 for Voltage TEST ONLY!!!
 				difftime = Laptime-Besttime;//calculate the differenz from your best time from your last
 				
@@ -160,11 +160,34 @@ int main(void)
 				}	
 				else{//If the diff time has not been updated within the the last intervall we want to show the error stuff
 					error_handling();
-					//string_to_digit(0,error_indicator,0,3);					
+					string_to_digit(0,error_indicator,0,3);					
 				}		
 					
 				if (Clutchtime == 0){ 
-					string_to_digit(0,"LC ACTIVE",7,2);		
+					string_to_digit(0,"LC ACTIVE",7,2);	
+					LC_change = 1;	
+				}
+				else{
+					//on first iteration clear the window
+					if ( LC_change > 0){
+						dsp_data[0][2][7] = 0x10;
+						dsp_data[0][2][8] = 0x10;
+						dsp_data[0][2][9] = 0x10;
+						dsp_data[0][2][10] = 0x10;
+						dsp_data[0][2][11] = 0x10;
+						dsp_data[0][2][12] = 0x10;
+						dsp_data[0][2][13] = 0x10;
+						dsp_data[0][2][14] = 0x10;
+						dsp_data[0][2][15] = 0x10;
+						LC_change--;
+					}
+					else{
+						num_to_digit(0,Clutchtime,1,2,11,2);//writes the number 1,5 for CLU  TEST ONLY!!!
+						dsp_data[0][2][15] = 's';
+						dsp_data[0][2][7] = 'C';
+						dsp_data[0][2][8] = 'L';
+						dsp_data[0][2][9] = 'U';
+					}
 				}
 			}
 			if (dsp_mde == 1){ //debug screen

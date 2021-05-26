@@ -24,7 +24,8 @@ void error_handling(){
 	for (int8_t i = 11;i>=0;i--){
 		error_indicator[i] = 0;
 	}
-	//Errormessages need always to end with an ! otherwise the function will not work due to the 255 in the if in the for loop in add_error_codes
+	//Error messages need always to end with an ! otherwise the function will not work due to the 255 in the if in the for loop in add_error_codes
+
 	if ((CLT >= CLT_max) & (rpm >= 300)){
 		add_error_codes(error_indicator, "CLT!");
 	}if((OILP <= OILP_min) & (rpm >= 300)){
@@ -37,7 +38,7 @@ void error_handling(){
 	add_error_codes(error_indicator, "VOLT!");
 	}
 	if(error_indicator[1]==0){
-		add_error_codes(error_indicator, "OK!");
+		add_error_codes(error_indicator, "OK");
 	}
 	
 	

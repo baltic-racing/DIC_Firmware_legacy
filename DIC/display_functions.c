@@ -200,4 +200,5 @@ void selftest(){
 		}
 	}
 	dsp_clear();
+	rpm = 0;
 }
