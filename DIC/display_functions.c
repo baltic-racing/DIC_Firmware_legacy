@@ -23,6 +23,7 @@ uint16_t rpm_ranges[12];
 uint16_t RPM_LED_Register;
 uint16_t RPM_divider = 0;
 uint8_t LED_active = 0;
+uint8_t Shutdown_byte = 0;
 
 
 
@@ -63,6 +64,60 @@ else{
 }
 
 };
+
+void shutdownLED(void)
+{
+	//Shutdown_byte = ~(PORTD & (1<<PD4)) | ~(PORTD & (1<<PD7)) << 1 | ~(PORTD & (1<<PD0)) << 2 | ~(PORTD & (1<<PD2)) << 3 | ~(PORTD & (1<<PD3)) << 4 | ~(PORTD & (1<<PD1)) << 5;
+	
+	//BSPD
+	if((1<<PD4)!=(PIND & (1<<PD4)))
+	{
+		PORTG |= (1<<PG1);
+	}
+	else{
+		PORTG &= ~(1<<PG1);
+	}
+
+	//Dashboard
+	if((1<<PD7)!=(PIND & (1<<PD7)))
+	{
+		PORTG |= (1<<PG0);
+	}else{
+		PORTG &= ~(1<<PG0);
+	}
+
+	//SdB Left
+	if((1<<PD0)!=(PIND & (1<<PD0)))
+	{
+		PORTF |= (1<<PF3);
+	}else{
+		PORTF &= ~(1<<PF3);
+	}
+
+	////SdB Right
+	if((1<<PD2)!=(PIND & (1<<PD2)))
+	{
+		PORTF |= (1<<PF2);
+	}else{
+		PORTF &= ~(1<<PF2);
+	}
+
+	//BOTS
+	if((1<<PD3)!=(PIND & (1<<PD3)))
+	{
+		PORTF |= (1<<PF1);
+	}else{
+		PORTF &= ~(1<<PF1);
+	}
+
+	//Inertia
+	if((1<<PD1)!=(PIND & (1<<PD1)))
+	{
+		PORTF |= (1<<PF0);
+	}else{
+		PORTF &= ~(1<<PF0);
+	}
+}
 
 void RPM_LED_Blink(){
 

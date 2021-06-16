@@ -189,7 +189,7 @@ void CAN_put_data(){
 	rpm = ecu0_databytes[1] << 8 | ecu0_databytes[0];
 	gear = CMC_databytes[0];
 	CLT = ecu2_databytes[7] << 8 | ecu2_databytes[6];
-	OILP = ecu2_databytes[4] * 6.25;
+	OILP = ecu2_databytes[4] / 1.6; //Value comes in 1/16 Bar per bit, we want to 1 comma, therefore we divide by 1.6
 	OILT = ecu2_databytes[3];
 	BrakeBias = 0;
 	ECUVoltage = (ecu4_databytes[3] << 8 | ecu4_databytes[2])*0.27; //Measured within ecumaster studio results in 0.1V resolution
@@ -199,8 +199,8 @@ void CAN_put_data(){
 	TPSE = ecu0_databytes[2];
 	APPS1 =ETC_databytes[0];
 	APPS2 = ETC_databytes[1];
-	BPF = SHR0_databytes[1] << 8 | SHR0_databytes[0];
-	BPR = SHL0_databytes[3] << 8 | SHL0_databytes[2];
+	BPF = (SHR0_databytes[1] << 8 | SHR0_databytes[0])/10;
+	BPR = (SHL0_databytes[3] << 8 | SHL0_databytes[2])/10;
 	//For some weird reason the length of the variable that gets shifted seems to matter, atleast in this usecase, with for e.g BPF etc it works fine which may be becouse we are actually only transmitting an 8 bit value
 	//what happens is we shift an 8bit uint by 8 to the left and want to save it in an 32bit uint, we put for e.g 135 in and should get 34560. instead we are getting 4294965720 which is definitly also not an 8bit value
 	//i do not know what is happening here but shifting a variable beyond its own limit seems to do weird stuff. therefore this stupid hacky fix with putting the 8bit integers into 32bit integer and than whacking it together

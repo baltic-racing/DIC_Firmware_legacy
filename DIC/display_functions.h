@@ -31,5 +31,6 @@ void dsp_init();
 void LED_RPM_Bar();
 void RPM_LED_Blink();
 void selftest();
+void shutdownLED();
 
 #endif /* DISPLAY_FUNCTIONS_H_ */

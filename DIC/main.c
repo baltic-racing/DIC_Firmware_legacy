@@ -32,20 +32,21 @@ Write char function					X
 Version info function				X
 goto position function				X
 blinking Cursor (Optional)
-Selftest
+Selftest							x
 hardware LED RPM indicator			X
 shutdown LED indicator
-Error detection
-error indication
+Error detection						x
+error indication					x
 error LED blink
 timing display						X
 debug display						X
 home display						X
-large RPM display
+large RPM display		
 TC RPM BAR blink
 TC adjustment !!!
 All Numbers as Custom Char
 CAN Error Check check for non zero can messages
+function num to digit, show zero when value is zero not nothing
 function num_to_digit displays zero when value is smaller than max digit count. needs to be acounted for -- Implemented
 function num_to_digit when value larger than digit is put in it cuts the excess instead of showing for e.g. 999
 Implement Brake Bias Calculation	x
@@ -133,6 +134,7 @@ int main(void)
 
 		if(update_data>=33){ //refresh rate for display about 30Hz
 			update_data = 0;
+			shutdownLED();
 
 			if (dsp_mde == 0){ //DiSPlay Mode 0 = Home
 				large_number(0,17,gear);//Large Number for gear indicator

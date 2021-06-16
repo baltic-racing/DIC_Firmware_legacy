@@ -20,7 +20,6 @@ uint8_t dsp_data [4][4][20];
 float BB = 0;
 
 uint8_t calc_BB (uint8_t BPF, uint8_t BPR){
-	BB = 0;
 	if (BPF >= 10){
 		BB = BPF+BPR;
 		BB = BPF/BB;
