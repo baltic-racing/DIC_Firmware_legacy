@@ -51,6 +51,8 @@ uint32_t Pred_time_4 = 0;
 uint16_t ODO = 0;
 uint16_t GPS_Speed = 0;
 
+extern LC_Active;
+
 struct CAN_MOB can_SWC_mob;
 	uint8_t SWC_databytes[8];	
 struct CAN_MOB can_CMC_mob;
@@ -73,6 +75,8 @@ struct CAN_MOB can_Logger1_mob;
 	uint8_t Logger1_databytes[8];
 struct CAN_MOB can_Logger2_mob;
 	uint8_t Logger2_databytes[8];
+struct CAN_MOB can_DIC_mob;
+	uint8_t DIC_databytes[8];
 
 void can_init_messages(){
 	
@@ -119,6 +123,10 @@ void can_init_messages(){
 	can_Logger2_mob.mob_id = 0x797;
 	can_Logger2_mob.mob_idmask = 0xffff;
 	can_Logger2_mob.mob_number = 10;
+	
+	can_DIC_mob.mob_id = 0x202;
+	can_DIC_mob.mob_idmask = 0xffff;
+	can_DIC_mob.mob_number = 11;
 }	
 
 void CAN_recieve(){
@@ -133,6 +141,8 @@ void CAN_recieve(){
 	can_rx(&can_Logger0_mob, Logger0_databytes);
 	can_rx(&can_Logger1_mob, Logger1_databytes);
 	can_rx(&can_Logger2_mob, Logger2_databytes);
+	
+	can_tx(&can_DIC_mob, DIC_databytes);
 }
 
 void CAN_put_data(){
@@ -229,5 +239,7 @@ void CAN_put_data(){
 	ODO = Logger0_databytes[6] << 8 | Logger0_databytes[5];
 	GPS_Speed = Logger2_databytes[7] << 8 | Logger2_databytes[6];
 	LapNumber = Logger0_databytes[0];	
+	
+	DIC_databytes[0] = LC_Active;
 	
 }

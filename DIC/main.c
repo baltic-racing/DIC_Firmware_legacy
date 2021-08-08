@@ -66,7 +66,8 @@ Implement Brake Bias Calculation	x
 #include "display_data.h"
 
 #define time_indicator_intervall 5000
-
+#define TRUE = 1
+#define FALSE = 0
 
 uint8_t dsp_mde = 0;
 uint8_t update_data = 0;
@@ -101,6 +102,7 @@ extern uint16_t ODO;
 extern uint16_t GPS_Speed;
 extern uint8_t LapNumber;
 uint8_t LC_change = 1;
+uint8_t LC_Active = 0;
 
 extern char error_indicator[];
 
@@ -163,11 +165,16 @@ int main(void)
 				else{//If the diff time has not been updated within the the last intervall we want to show the error stuff
 					error_handling();
 					string_to_digit(0,error_indicator,0,3);					
-				}		
-					
+				}
+				
+				if (Clutchtime != 0){
+					LC_Active = FALSE;
+				}
+						
 				if (Clutchtime == 0){ 
 					string_to_digit(0,"LC ACTIVE",7,2);	
 					LC_change = 1;	
+					LC_Active =TRUE;
 				}
 				else{
 					//on first iteration clear the window
@@ -184,7 +191,7 @@ int main(void)
 						LC_change--;
 					}
 					else{
-						num_to_digit(0,Clutchtime,1,2,11,2);//writes the number 1,5 for CLU  TEST ONLY!!!
+						num_to_digit(0,Clutchtime,1,2,11,2);
 						dsp_data[0][2][15] = 's';
 						dsp_data[0][2][7] = 'C';
 						dsp_data[0][2][8] = 'L';
