@@ -66,8 +66,8 @@ Implement Brake Bias Calculation	x
 #include "display_data.h"
 
 #define time_indicator_intervall 5000
-#define TRUE = 1
-#define FALSE = 0
+#define TRUE 1
+#define FALSE 0
 
 uint8_t dsp_mde = 0;
 uint8_t update_data = 0;
