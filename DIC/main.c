@@ -101,6 +101,7 @@ extern uint32_t Pred_time;
 extern uint16_t ODO;
 extern uint16_t GPS_Speed;
 extern uint8_t LapNumber;
+extern uint16_t rpm;
 uint8_t LC_change = 1;
 uint8_t LC_Active = 0;
 
@@ -223,6 +224,32 @@ int main(void)
 			}
 			if (dsp_mde == 3){ //RPM
 				
+				//convert rpm to some stuff ~
+				
+				uint16_t rpm_work = rpm;
+				
+				uint8_t rpm_first_digit = rpm_work % 10;
+				rpm_work = rpm_work / 10;
+				uint8_t rpm_second_digit = rpm_work % 10;
+				rpm_work = rpm_work / 10;
+				uint8_t rpm_third_digit = rpm_work % 10;
+				rpm_work = rpm_work / 10;
+				uint8_t rpm_fourth_digit = rpm_work % 10;
+				rpm_work = rpm_work / 10;
+				uint8_t rpm_fifth_digit = rpm_work % 10;
+				
+				if(rpm_fifth_digit == 0){
+					rpm_fifth_digit = 10;
+				}
+				if(rpm_fourth_digit == 0 & rpm_fifth_digit == 10){
+					rpm_fourth_digit = 10;
+				}
+				
+				large_number(3,17,rpm_first_digit);
+				large_number(3,13,rpm_second_digit);
+				large_number(3,9,rpm_third_digit);
+				large_number(3,5,rpm_fourth_digit);
+				large_number(3,1,rpm_fifth_digit);
 			}			
 		}
 		if(draw_data){ //1000Hz/1ms loop

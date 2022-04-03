@@ -7,3 +7,8 @@ DIC_irgendwie/Debug/*
 
 #User Specific Files
 *.atsuo
+*.d
+*.map
+*.map
+*.cproj
+.vs/dic/v14/.atsuo

@@ -194,7 +194,7 @@ void CAN_put_data(){
 		*/
 	Rotary_Encoder_Right = SWC_databytes[0];
 	Rotary_Encoder_Left = SWC_databytes[1];
-	dsp_mde = Rotary_Encoder_Right;
+	dsp_mde = Rotary_Encoder_Right%4;
 	Clutchtime = Rotary_Encoder_Left*5;//0,5s steps
 	rpm = ecu0_databytes[1] << 8 | ecu0_databytes[0];
 	gear = CMC_databytes[0];

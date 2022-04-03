@@ -194,6 +194,95 @@ void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number){
 		dsp_data[dsp_mode][3][offset+2] = 0xFF;
 		break;
 		
+		case 7:
+		//First Line
+		dsp_data[dsp_mode][0][offset] = 0xFF;
+		dsp_data[dsp_mode][0][offset+1] = 0xFF;
+		dsp_data[dsp_mode][0][offset+2] = 0xFF;
+
+		//second Line
+		dsp_data[dsp_mode][1][offset] = 0x10;
+		dsp_data[dsp_mode][1][offset+1] = 0x10;
+		dsp_data[dsp_mode][1][offset+2] = 0xFF;
+
+		//third Line
+		dsp_data[dsp_mode][2][offset] = 0x10;
+		dsp_data[dsp_mode][2][offset+1] = 0x10;
+		dsp_data[dsp_mode][2][offset+2] = 0xFF;
+
+		//fourth Line
+		dsp_data[dsp_mode][3][offset] = 0x10;
+		dsp_data[dsp_mode][3][offset+1] = 0x10;
+		dsp_data[dsp_mode][3][offset+2] = 0xFF;
+		break;
+		
+		case 8:
+		//First Line
+		dsp_data[dsp_mode][0][offset] = 0xFF;
+		dsp_data[dsp_mode][0][offset+1] = 0x01;
+		dsp_data[dsp_mode][0][offset+2] = 0xFF;
+
+		//second Line
+		dsp_data[dsp_mode][1][offset] = 0xFF;
+		dsp_data[dsp_mode][1][offset+1] = 0x07; //custom char 1
+		dsp_data[dsp_mode][1][offset+2] = 0xFF; //custom char 1
+
+		//third Line
+		dsp_data[dsp_mode][2][offset] = 0xFF;
+		dsp_data[dsp_mode][2][offset+1] = 0x01;
+		dsp_data[dsp_mode][2][offset+2] = 0xFF;
+
+		//fourth Line
+		dsp_data[dsp_mode][3][offset] = 0xFF;
+		dsp_data[dsp_mode][3][offset+1] = 0x07;
+		dsp_data[dsp_mode][3][offset+2] = 0xFF;
+		break;
+		
+		case 9:
+		//First Line
+		dsp_data[dsp_mode][0][offset] = 0xFF;
+		dsp_data[dsp_mode][0][offset+1] = 0x01;
+		dsp_data[dsp_mode][0][offset+2] = 0xFF;
+
+		//second Line
+		dsp_data[dsp_mode][1][offset] = 0xFF;
+		dsp_data[dsp_mode][1][offset+1] = 0x07; //custom char 1
+		dsp_data[dsp_mode][1][offset+2] = 0xFF; //custom char 1
+
+		//third Line
+		dsp_data[dsp_mode][2][offset] = 0x10;
+		dsp_data[dsp_mode][2][offset+1] = 0x01;
+		dsp_data[dsp_mode][2][offset+2] = 0xFF;
+
+		//fourth Line
+		dsp_data[dsp_mode][3][offset] = 0xFF;
+		dsp_data[dsp_mode][3][offset+1] = 0x07;
+		dsp_data[dsp_mode][3][offset+2] = 0xFF;
+		break;
+		
+		//empty char
+		case 10:
+		//First Line
+		dsp_data[dsp_mode][0][offset] = 0x10;
+		dsp_data[dsp_mode][0][offset+1] = 0x10;
+		dsp_data[dsp_mode][0][offset+2] = 0x10;
+
+		//second Line
+		dsp_data[dsp_mode][1][offset] = 0x10;
+		dsp_data[dsp_mode][1][offset+1] = 0x10; //custom char 1
+		dsp_data[dsp_mode][1][offset+2] = 0x10; //custom char 1
+
+		//third Line
+		dsp_data[dsp_mode][2][offset] = 0x10;
+		dsp_data[dsp_mode][2][offset+1] = 0x10;
+		dsp_data[dsp_mode][2][offset+2] = 0x10;
+
+		//fourth Line
+		dsp_data[dsp_mode][3][offset] = 0x10;
+		dsp_data[dsp_mode][3][offset+1] = 0x10;
+		dsp_data[dsp_mode][3][offset+2] = 0x10;
+		break;
+		
 		//if no valid gear was transmitted
 		default:
 		dsp_data[dsp_mode][0][offset] = 0xFF;
@@ -230,13 +319,19 @@ void string_to_digit(uint8_t dsp_mode, char *string, uint8_t offset_column, uint
 //num_to_3digit this function not only converts the raw data to a 3Digit number which can be displayed onto the display, it also sets the Page and Position of the Number on the Display
 void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_column, uint8_t offset_line){
 	
+	/*
+	uint8_t first_digit_encountered = 0;
 	for(uint8_t i = 0; i < digits; i++){
 	
 		//convertz num to x digits
 		uint8_t digit = number % 10;
 		digit = 0x30 + digit;
-		if (digit == 0x30 & number/10 == 0){ //When number is smaller than digit count for eg 3digit oilt but its only 80°C it only displays 2 digit's
-			digit = 0x10;
+		if (digit == 0x30 & first_digit_encountered == 0){ //When number is smaller than digit count for eg 3digit oilt but its only 80°C it only displays 2 digit's
+			if(i != (digits-1)){
+				digit = 0x10;	
+			}
+		} else {
+			first_digit_encountered == 1;
 		}
 		number = number/10;
 
@@ -253,7 +348,36 @@ void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digi
 			
 			dsp_data [dsp_mode][offset_line][offset_column+digits-1-i] = digit;
 		}
-	}
+		*/
+		uint8_t digits_char[digits];
+		uint8_t written_comma = 0;
+		for(uint8_t i = 1; i <= digits; i++){
+			uint8_t digit = number % 10; 
+			digits_char[digits-i] = 0x30 + digit;
+			number = number/10;
+		}
+		uint8_t first_digit_encountered = 0;
+		for(uint8_t i = 0; i < digits; i++){
+			
+			if(digits_char[i] != 0x30){
+				first_digit_encountered = 1;
+			}
+			if (!first_digit_encountered & i < (digits - comma -2)){
+				digits_char[i] = 0x10;
+			}
+			
+			if(i < digits-comma){
+				dsp_data [dsp_mode][offset_line][offset_column+i] = digits_char[i];
+			}else{
+				if (!written_comma){
+					dsp_data [dsp_mode][offset_line][offset_column+i] = '.';
+					written_comma = 1;
+				}
+				dsp_data [dsp_mode][offset_line][offset_column+1+i] = digits_char[i];
+			}
+		}
+		
+	//}
 };
 
 void time_to_digit(uint8_t dsp_mode, uint32_t number, uint8_t offset_column, uint8_t offset_line){

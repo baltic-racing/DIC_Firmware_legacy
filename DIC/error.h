@@ -17,7 +17,5 @@
 #define Volt_min 120 //0.1V
 
 void error_handling();
-void add_error_codes(char *string1[], char *string2[]);
-
 
 #endif /* ERROR_H_ */
