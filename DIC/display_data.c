@@ -300,7 +300,7 @@ void large_number(uint8_t dsp_mode, uint8_t offset, uint8_t number){
 	
 };
 */
-
+/*
 void string_to_digit(uint8_t dsp_mode, char *string, uint8_t offset_column, uint8_t offset_line){
 
 	for(size_t i = 0; i < strlen(string); i++){
@@ -308,7 +308,7 @@ void string_to_digit(uint8_t dsp_mode, char *string, uint8_t offset_column, uint
 	dsp_data [dsp_mode][offset_line][offset_column+i] = string[i];	
 		}
 }
-
+*/
 /*
 //num_to_3digit this function not only converts the raw data to a 3Digit number which can be displayed onto the display, it also sets the Page and Position of the Number on the Display
 void num_to_digit(uint8_t dsp_mode, uint16_t number, uint8_t comma, uint8_t digits, uint8_t offset_column, uint8_t offset_line){
@@ -383,7 +383,7 @@ seconds = seconds % 60;
 	
 };
 */
-
+/*
 void dsp_clear(void){
 	//init the Display with and empty char
 	for (int i = 0; i<4;i++){
@@ -395,7 +395,7 @@ void dsp_clear(void){
 		}
 	}
 }
-
+*/
 /*
 void dsp_arrayinit_static(void)
 {
