@@ -23,7 +23,7 @@ void port_config(void)
 	//PB5 --> Display_R/W
 	//PB6 --> Display_RS
 	//PB7 --> Chip_Select_RGB_Right
-	DDRB |= (1<<PB1) | (1<<PB2) |(1<<PB4) | (1<<PB5) | (1<<PB6) | (1<<PB7);
+	DDRB |= (1<<PB1) | (1<<PB2) | (1<<PB4) | (1<<PB5) | (1<<PB6) | (1<<PB7);
 	
 	//PB3 --> MISO
 	DDRB &= ~(1<<PB3);

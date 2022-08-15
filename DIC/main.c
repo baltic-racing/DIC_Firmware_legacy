@@ -27,15 +27,24 @@ uint8_t led_2 = 0;
 /*	MAIN	*/
 int main(void)
 {
+	/*	Configuration	*/
 	port_config();
 	sys_timer_config();
 	
+	//Initialize Display
+	dsp_init();
+	dsp_clear();
+	
 	//Enable maskable Interrupts
 	sei();
+	
+	/*	Hardware testing	*/
+	selftest();
 	
 	/*	FOREVER DO	*/
 	while(1)
 	{
 		/*	Code	*/
+		selftest();
 	}	
 }
