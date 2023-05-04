@@ -230,10 +230,10 @@ void selftest(){
 	uint8_t LEDS_off = 0;
 	while (systime_selftest+selftest_time >= sys_time)
 	{
-		string_to_digit(0,"     DIC V2.0.1     ",0,0);
-		string_to_digit(0," Proudly presented  ",0,1);
+		string_to_digit(0,"     DIC V2.0.2     ",0,0);
+		string_to_digit(0," Normally presented ",0,1);
 		string_to_digit(0,"         by         ",0,2);
-		string_to_digit(0,"    Lukas Deeken    ",0,3);
+		string_to_digit(0,"   Nico Bieberich   ",0,3);
 		dsp_write(0);
 		LED_RPM_Bar();
 		RPM_LED_Blink();		
@@ -242,8 +242,8 @@ void selftest(){
 	{
 		string_to_digit(0,"       Welcome      ",0,0);
 		string_to_digit(0,"         to         ",0,1);
-		string_to_digit(0,"        TY20        ",0,2);
-		string_to_digit(0,"The Last of its Kind",0,3);
+		string_to_digit(0,"        TY23        ",0,2);
+		string_to_digit(0,"The VERY LAST of Ulf",0,3);
 		dsp_write(0);
 	
 		if (systime_selftest+selftest_time+LEDS_off*(selftest_time/LED_Count)<= sys_time )
