@@ -402,28 +402,47 @@ void dsp_arrayinit_static(void)
 //home screen
 	//first argument is the display mode here i is always 0, second number is the row count (4 rows 1-3), 3argument is the Line count 0-20
 	//Names
-	dsp_data[0][0][0] = 'C';
-	dsp_data[0][0][1] = 'O';
-	dsp_data[0][0][2] = 'O';
-	dsp_data[0][0][3] = 'L';
+	dsp_data[0][0][0] = 'T';
+	dsp_data[0][0][1] = 'S';
+	dsp_data[0][0][2] = 'V';
 	
-	dsp_data[0][1][0] = 'O';
-	dsp_data[0][1][1] = 'E';
-	dsp_data[0][1][2] = 'L';	
+	dsp_data[0][0][10] = 'S';
+	dsp_data[0][0][11] = 'P';
+	dsp_data[0][0][12] = 'D';
+	
+	dsp_data[0][1][0] = 'C';
+	dsp_data[0][1][1] = 'O';
+	dsp_data[0][1][2] = 'O';
+	dsp_data[0][1][3] = 'L';
+	
+	dsp_data[0][1][10] = 'A';
+	dsp_data[0][1][11] = 'C';
+	dsp_data[0][1][12] = 'T';
 	
 	dsp_data[0][2][0] = 'B';
-	dsp_data[0][2][1] = 'B';	
+	dsp_data[0][2][1] = 'B';
 	
-	dsp_data[0][2][7] = 'C';
-	dsp_data[0][2][8] = 'L';
-	dsp_data[0][2][9] = 'U';
+	dsp_data[0][2][10] = 'S';
+	dsp_data[0][2][11] = 'O';
+	dsp_data[0][2][12] = 'C';
+	
+	dsp_data[0][3][10] = 'L';
+	dsp_data[0][3][11] = 'V';
+	dsp_data[0][3][12] = 'S';
+	
 	//Units
-	dsp_data[0][1][7] = 'B';
+	dsp_data[0][0][8] = 'V';
+	dsp_data[0][0][17] = 'K';
+	dsp_data[0][0][18] = 'M';
+	dsp_data[0][0][19] = 'H';
 	
-	dsp_data[0][0][15] = 'C';
-	dsp_data[0][1][15] = 'C';
-	dsp_data[0][2][15] = 's';
-	dsp_data[0][3][15] = 'V';
+	dsp_data[0][1][8] = 'C';
+	dsp_data[0][1][17] = 'C';
+	
+	dsp_data[0][2][8] = '-';
+	dsp_data[0][2][17] = '%';
+	
+	dsp_data[0][3][17] = 'V';
 	
 //DEBUG INTERFACE
 	//Names

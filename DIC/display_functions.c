@@ -9,10 +9,14 @@ extern uint8_t dsp_data [4][4][20];
 extern volatile unsigned long sys_time;
 unsigned long sys_time_blink = 0;
 
+//Definitions
+// Data Lines - PORTE
+// Enable     - PC2
+// RS         - PC0
+// RW         - PC1
+
 uint8_t counter = 0;                //counts transmissions
 uint8_t dsp_linecounter = 0;        //counts in which Line we currently are
-//uint8_t LED_active = 0;
-//uint8_t Shutdown_byte = 0;
 
 //This array contains commands for initializing the Display
 
@@ -37,6 +41,18 @@ uint8_t dsp_line [4] =
 	0xD4, //Line 3
 	0x80, //Line 1
 };
+
+uint8_t invert_binary_number(uint8_t number_to_invert){
+	
+	uint8_t out_num = 0;
+	
+	for (uint8_t it = 0 ; it < 8; it++){
+
+		out_num |= ((number_to_invert>> it) & 1)<<(7-it);
+		
+	}
+	return out_num;
+}
 
 
 //This Function turns off the left Top Bar
@@ -92,7 +108,8 @@ void led_right_top_bar_select(uint8_t select_r)
 void dsp_writedata(uint8_t data,uint8_t rs)
 {
 	//PORTE as Output
-	PORTE = data;
+	
+	PORTE = invert_binary_number(data);
 	
 	//SETS THE RS PIN
 	if (rs==1) {PORTB |= (1<<PB6);}
@@ -103,7 +120,7 @@ void dsp_writedata(uint8_t data,uint8_t rs)
 	//Sets enable low
 	for(int wait = 0; wait<100; wait++){}
 	PORTB &= ~(1<<PB4);
-	//This is doen so that the display will read the data pins and process them
+	//This is done so that the display will read the data pins and process them
 }
 
 //Function to set customchars
@@ -186,7 +203,7 @@ void selftest()
 	{
 		string_to_digit(0,"Initializing Voodoo.",0,0);
 		string_to_digit(0," Charging Up Magic. ",0,1);
-		string_to_digit(0,"Filling Up Gasoline.",0,2);
+		string_to_digit(0,"  Filling Up Smoke  ",0,2);
 		string_to_digit(0,"  Make 'em WICKED!  ",0,3);
 		dsp_write(0);
 	}

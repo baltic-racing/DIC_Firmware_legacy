@@ -6,6 +6,8 @@
 
 /*	Extern Global Variables	*/
 extern volatile unsigned long sys_time;
+uint8_t update_data = 0;
+uint8_t draw_data = 0;
 
 void port_config(void)
 {
@@ -77,8 +79,8 @@ void sys_timer_config(void)
 /*	Interrupt Service Routines	*/
 ISR(TIMER0_COMP_vect)
 {
-	//draw_data = 1;
-	//update_data++;
+	draw_data = 1;
+	update_data++;
 	sys_time++;
 	PORTG ^= (1<<PG3);
 }

@@ -14,5 +14,7 @@ error.c
 
 main.c
 
+portextender.c
+
 system_config.c
 
