@@ -75,7 +75,7 @@ volatile unsigned long sys_time = 0;
 unsigned long systime_time_indicator = 0;
 
 //Global Variables -> extern indicates that variables are defined in another File always use extern except the file where the Variable is first deklared
-extern uint8_t Rotary_Encoder_Right;
+extern uint8_t Rotary_Encoder_Left;
 extern uint16_t CLT;
 extern uint8_t APPS1;
 extern uint8_t APPS2;
@@ -99,10 +99,13 @@ extern char error_indicator[];
 int32_t difftime = 0;
 int32_t difftime_old = 0;
 
+
+
 // MAIN FUNCTION
 int main(void)
 {
 	//Init and config part
+	
 	port_config();
 	sys_timer_config();
 	can_init_messages();
@@ -114,6 +117,9 @@ int main(void)
 	sei();
 	selftest();
 	dsp_arrayinit_static();
+	
+	led_top_left_bar(5,0,4);
+	
 	//Loop
 	while(1){
 
@@ -123,14 +129,14 @@ int main(void)
 			if (dsp_mde == 0){ //DiSPlay Mode 0 = Home
 				num_to_digit(0,TSVoltage,0,3,5,0);
 				num_to_digit(0,GPS_Speed,0,3,14,0);
-				num_to_digit(0,CLT,0,3,11,1);//writes the number 121 for clt TEST ONLY!!!
+				num_to_digit(0,CLT,0,2,6,1);//writes the number 121 for clt TEST ONLY!!!
 				num_to_digit(0,AccumulatorTemperature,0,2,15,1);
 				num_to_digit(0,SOC,0,3,14,2);
 				num_to_digit(0,LVSVoltage,0,2,15,3);
 
 //-------------------------- Sitching between brake bias or LC Active------------------------------
-					if (Rotary_Encoder_Right == 0){
-						string_to_digit(0,"LC ACTIVE",7,2);
+					if (Rotary_Encoder_Left == 0){
+						string_to_digit(0,"LC ACTIVE",0,2);
 						LC_change = 1;
 						LC_Active =TRUE;
 					}
@@ -138,18 +144,14 @@ int main(void)
 						LC_Active = FALSE;
 						//on first iteration clear the window
 						if ( LC_change > 0){
-							dsp_data[0][2][7] = 0x10;
-							dsp_data[0][2][8] = 0x10;
-							dsp_data[0][2][9] = 0x10;
-							dsp_data[0][2][10] = 0x10;
-							dsp_data[0][2][11] = 0x10;
-							dsp_data[0][2][12] = 0x10;
-							dsp_data[0][2][13] = 0x10;
-							dsp_data[0][2][14] = 0x10;
-							dsp_data[0][2][15] = 0x10;
+							dsp_data[0][2][2] = 0x10;
+							dsp_data[0][2][3] = 0x10;
+							dsp_data[0][2][4] = 0x10;
+							dsp_data[0][2][5] = 0x10;
 							LC_change--;
+							dsp_arrayinit_static();
 						}
-						num_to_digit(0,calc_BB(BPF,BPR),0,2,4,2);//writes the number 55 for BB  TEST ONLY!!!
+						num_to_digit(0,calc_BB(BPF,BPR),0,2,6,2);//writes the number 55 for BB  TEST ONLY!!!
 					}
 //--------------------------------Switching between error indicator and diff time ---------------------------------------
 				difftime = Laptime-Besttime;//calculate the differenz from your best time from your last

@@ -176,8 +176,8 @@ void CAN_recieve(){
 void CAN_put_data(){
 		// Testdata comment when display is in car
 		
-		SWC_databytes[0] = 1;
-		SWC_databytes[1] = 0;
+		SWC_databytes[0] = 0;
+		SWC_databytes[1] = 1;
 
 		//APPS Values in 0,1%
 		SHR0_databytes[0] = 400;
