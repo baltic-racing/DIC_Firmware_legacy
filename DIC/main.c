@@ -95,10 +95,19 @@ extern uint16_t SOC;
 extern uint16_t LVSVoltage;
 
 extern char error_indicator[];
+extern systime_selftest;
 
 int32_t difftime = 0;
 int32_t difftime_old = 0;
 
+uint8_t LED_Blink_Flag = 0;
+uint8_t LED_Blink_on = 0;
+uint8_t Anzahl_Blinks_Glob = 0;
+uint16_t Zeit_fuer_Blinken_Glob = 0;
+unsigned long sys_time_blink = 0;
+
+void LED_Blink(uint8_t Anzahl_Blinks, uint16_t Zeit_fuer_Blinken);
+void LED_Blink_CTRL();
 
 
 // MAIN FUNCTION
@@ -115,10 +124,18 @@ int main(void)
 	
 	dsp_clear();
 	sei();
-	selftest();
-	dsp_arrayinit_static();
+	systime_selftest = sys_time;
 	
-	led_top_left_bar(5,0,4);
+	while (systime_selftest+selftest_time*4 >= sys_time)
+	{
+		selftest();
+	}
+	LED_Blink(10,3000);
+	
+	dsp_clear();
+	
+	dsp_arrayinit_static();
+
 	
 	//Loop
 	while(1){
@@ -205,7 +222,9 @@ int main(void)
 		if(draw_data){ //1000Hz/1ms loop
 			dsp_write(dsp_mde);
 			draw_data = 0;
-			LED_Port_Blink();
+			LED_Blink_CTRL();
+			
+			
 		}	
 		if(sys_time - time_100 >= 10){//100Hz/10ms loop
 			CAN_recieve();
@@ -214,4 +233,41 @@ int main(void)
 			
 		}
 	}	
+}
+
+void LED_Blink(uint8_t Anzahl_Blinks, uint16_t Zeit_fuer_Blinken){
+	Anzahl_Blinks_Glob = Anzahl_Blinks;
+	Zeit_fuer_Blinken_Glob = Zeit_fuer_Blinken;
+	sys_time_blink = sys_time;
+	LED_Blink_Flag = 0;
+	LED_Blink_on = 0;
+	}
+
+void LED_Blink_CTRL(){
+	
+	if (LED_Blink_Flag < Anzahl_Blinks_Glob)
+	{
+		if (((sys_time_blink + (Zeit_fuer_Blinken_Glob/(Anzahl_Blinks_Glob*2)/2) + (LED_Blink_Flag * (Zeit_fuer_Blinken_Glob/(Anzahl_Blinks_Glob*2)))) <= sys_time) && (LED_Blink_on == 0))
+		{
+			LED_Blink_on = 1;
+			
+			led_left_top_bar_select(LED_COUNT_TOP_LEFT);
+			led_right_top_bar_select(LED_COUNT_TOP_RIGHT);
+			
+			LED_Blink_Flag++;
+			
+		}
+		else if (((sys_time_blink  + (LED_Blink_Flag * (Zeit_fuer_Blinken_Glob/(Anzahl_Blinks_Glob*2)))) <= sys_time) && (LED_Blink_on == 1))
+		{
+			LED_Blink_on = 0;
+			clear_top_left_bar();
+			clear_top_right_bar();
+		}
+	}else{
+	LED_Blink_Flag = 0;
+	Anzahl_Blinks_Glob = 0;
+	LED_Blink_on = 0;
+	clear_top_left_bar();
+	clear_top_right_bar();
+	}
 }

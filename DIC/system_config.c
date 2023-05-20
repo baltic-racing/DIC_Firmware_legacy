@@ -83,4 +83,8 @@ ISR(TIMER0_COMP_vect)
 	update_data++;
 	sys_time++;
 	PORTG ^= (1<<PG3);
+	
 }
+
+
+
