@@ -8,6 +8,7 @@
 extern uint8_t dsp_data [4][4][20]; 
 extern volatile unsigned long sys_time;
 unsigned long sys_time_blink = 0;
+uint8_t Blink_CTRL = 0;
 
 //Definitions
 // Data Lines - PORTE
@@ -188,15 +189,66 @@ void dsp_init()
 	}
 }
 
+void Write_LED_Control(uint16_t LED_Register){
+	
+	//Top bar DDRC komplett + PG0-PG2 + PA4-7
+	// remember kids think abaut your programming when drawing the schematic for the PCB otherweise this Sh** comes of it
+	
+	PING = invert_binary_number(((LED_Register >> 14) & 0b00000011))>>6 | (PING & 0b11111100);
+	
+	PINC = invert_binary_number((LED_Register & 0b0001111111100000) >> 5);
+	
+	PING = ((LED_Register & 0b0000000000010000) >> 2) | (PING & 0b11111011);
+	
+	PINA = ((LED_Register & 0b0000000000001111) << 4) | (PINA & 0b00001111);
+
+}
+
+uint16_t Read_LED_Control(){
+	uint16_t LED_Register = 0;
+	
+	LED_Register = (invert_binary_number((PING & 0b00000011))) << 14;
+	
+	LED_Register |= (invert_binary_number(PINC) << 5);
+	
+	LED_Register |= ((PING & 0b11111011) << 2);
+	
+	LED_Register |= (PINA & 0b00001111) >> 4;
+	
+	return LED_Register;
+	
+}
+
+void LED_Port_Blink(){
+	
+	if (Blink_CTRL = true)
+	{
+		if (sys_time-sys_time_blink >= Blinkintervall){
+		
+			if (Read_LED_Control == 0){	//when the RPM LED's have been turned off by the blinking algorythm and the intervall is over we want to switch the led's on
+				Write_LED_Control(0xFFFF);
+				sys_time_blink = sys_time;
+				}else{						//when the RPM LED's have been turned on by the blinking algorythm and the intervall is over we want to switch the led's off
+				Write_LED_Control(0x0000);
+				sys_time_blink = sys_time;
+			}
+		}
+	}
+}
+
 void selftest()
 {
+	Blink_CTRL = true;
+	uint8_t LEDS_off = 0;
+	uint16_t LED_Register = 0;
+	
 	long systime_selftest = sys_time;
 	while (systime_selftest+selftest_time >= sys_time)
 	{
 		string_to_digit(0,"      DIC V0.1      ",0,0);
 		string_to_digit(0,"  Software written  ",0,1);
 		string_to_digit(0,"         by         ",0,2);
-		string_to_digit(0,"   Baltic Racing!   ",0,3);
+		string_to_digit(0,"Baltic Racing Alumni",0,3);
 		dsp_write(0);	
 	}
 	while (systime_selftest+selftest_time*3 >= sys_time)
@@ -206,6 +258,15 @@ void selftest()
 		string_to_digit(0,"  Filling Up Smoke  ",0,2);
 		string_to_digit(0,"  Make 'em WICKED!  ",0,3);
 		dsp_write(0);
+		
+		Write_LED_Control(0xFFFF);
+		
+		if (systime_selftest+selftest_time+LEDS_off*(selftest_time/LED_Count)<= sys_time )
+		{
+			LED_Register = Read_LED_Control() >> 1;
+			Write_LED_Control(LED_Register);
+			LEDS_off++;
+		}
 	}
 	dsp_clear();
 }

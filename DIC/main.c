@@ -205,6 +205,7 @@ int main(void)
 		if(draw_data){ //1000Hz/1ms loop
 			dsp_write(dsp_mde);
 			draw_data = 0;
+			LED_Port_Blink();
 		}	
 		if(sys_time - time_100 >= 10){//100Hz/10ms loop
 			CAN_recieve();

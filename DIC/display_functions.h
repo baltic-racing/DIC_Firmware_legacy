@@ -4,12 +4,20 @@
 #define LED_COUNT_TOP_LEFT 5
 #define LED_COUNT_TOP_RIGHT 10
 #define selftest_time 1500 //selftest_time in ms takes times 2 for actual time
+#define Blinkintervall 80
+#define LED_Count 15
+#define true 1
 
 void dsp_writedata(uint8_t data,uint8_t rs);
 void dsp_customchar(uint8_t charpos, uint8_t line1, uint8_t line2, uint8_t line3, uint8_t line4, uint8_t line5, uint8_t line6, uint8_t line7, uint8_t line8);
 void dsp_write(uint8_t dsp_mode);
 void dsp_definechars();
 void dsp_init();
+
+void LED_Port_Blink();
+void Write_LED_Control(uint16_t LED_Register);
+uint16_t Read_LED_Control();
+uint8_t invert_binary_number(uint8_t number_to_invert);
 
 void clear_top_left_bar(void);
 void clear_top_right_bar(void);
