@@ -95,9 +95,9 @@ struct CAN_MOB can_AMS3_mob;
 
 void can_init_messages(){
 	
-	can_SWC_mob.mob_id = 0x800;
-	can_SWC_mob.mob_idmask = 0xffff;
-	can_SWC_mob.mob_number = 0;
+	//can_SWC_mob.mob_id = 0x800;
+	//can_SWC_mob.mob_idmask = 0xffff;
+	//can_SWC_mob.mob_number = 0;
 	
 	can_Fusebox0_mob.mob_id = 0x600;
 	can_Fusebox0_mob.mob_idmask = 0xffff;
@@ -175,10 +175,10 @@ void CAN_recieve(){
 
 void CAN_put_data(){
 		// Testdata comment when display is in car
-		/*
+		
 		SWC_databytes[0] = 0;
 		SWC_databytes[1] = 1;
-
+/*
 		//APPS Values in 0,1%
 		SHR0_databytes[0] = 400;
 		SHR0_databytes[1] = 400 >> 8;
@@ -238,7 +238,7 @@ void CAN_put_data(){
 		Logger2_databytes[7] = 96<<8;
 		
 		Logger0_databytes[0] = 42;
-		*/
+*/
 		
 		
 		
