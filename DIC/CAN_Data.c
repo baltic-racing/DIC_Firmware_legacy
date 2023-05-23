@@ -154,7 +154,7 @@ void can_init_messages(){
 }	
 
 void CAN_recieve(){
-	/*
+	
 	can_rx(&can_SWC_mob, SWC_databytes);
 	can_rx(&can_Fusebox0_mob, Fusebox0_databytes);
 	can_rx(&can_Fusebox1_mob, Fusebox1_databytes);
@@ -170,12 +170,12 @@ void CAN_recieve(){
 	can_rx(&can_AMS3_mob, AMS3_databytes);
 	
 	can_tx(&can_DIC0_mob, DIC0_databytes);
-	*/
+	
 }
 
 void CAN_put_data(){
 		// Testdata comment when display is in car
-		
+		/*
 		SWC_databytes[0] = 0;
 		SWC_databytes[1] = 1;
 
@@ -238,7 +238,7 @@ void CAN_put_data(){
 		Logger2_databytes[7] = 96<<8;
 		
 		Logger0_databytes[0] = 42;
-		
+		*/
 		
 		
 		
