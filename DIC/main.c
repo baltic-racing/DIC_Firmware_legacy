@@ -70,7 +70,7 @@ extern uint8_t dsp_data [4][4][20];
 
 //Volatiles -> Volatile indicates the compiler that the variable might change value unexpectatly for e.g. throug an Interrupt. 
 //this guarantees that the variable will always be loaded from memory when used
-volatile uint8_t time_100 = 0;
+volatile unsigned long time_100 = 0;
 volatile unsigned long sys_time = 0;
 unsigned long systime_time_indicator = 0;
 
@@ -131,18 +131,18 @@ int main(void)
 	
 	/*	TRANSMIT TO DEBUG START	*/
 
-	mob_to_transmit.mob_id = 0x199;
+	mob_to_transmit.mob_id = 0x100;
 	mob_to_transmit.mob_idmask = 0;
 	mob_to_transmit.mob_number = 0;
 	
 	mob_0_data[0] = 0;
-	mob_0_data[1] = 2;
-	mob_0_data[2] = 3;
-	mob_0_data[3] = 4;
-	mob_0_data[4] = 5;
-	mob_0_data[5] = 6;
-	mob_0_data[6] = 7;
-	mob_0_data[7] = 8;
+	mob_0_data[1] = 0;
+	mob_0_data[2] = 1;
+	mob_0_data[3] = 0;
+	mob_0_data[4] = 0;
+	mob_0_data[5] = 0;
+	mob_0_data[6] = 0;
+	mob_0_data[7] = 0;
 
 	/*	TRANSMIT TO DEBUG END	*/
 	
@@ -246,7 +246,13 @@ int main(void)
 		if(draw_data){ //1000Hz/1ms loop
 			dsp_write(dsp_mde);
 			draw_data = 0;
-			LED_Blink_CTRL();
+			LED_Blink_CTRL();		
+			
+		}	
+		if((sys_time - time_100) >= 10){//100Hz/10ms loop
+			CAN_recieve();
+			CAN_put_data();			
+			time_100 = sys_time;
 			
 			/*	TRANSMIT TO DEBUG START	*/
 			
@@ -254,12 +260,6 @@ int main(void)
 			mob_0_data[0]++;
 			
 			/*	TRANSMIT TO DEBUG END	*/			
-			
-		}	
-		if(sys_time - time_100 >= 10){//100Hz/10ms loop
-			CAN_recieve();
-			CAN_put_data();			
-			time_100 = sys_time;
 			
 		}
 	}	
