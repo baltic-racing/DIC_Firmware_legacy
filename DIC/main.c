@@ -70,6 +70,7 @@ extern uint8_t dsp_data [4][4][20];
 
 //Volatiles -> Volatile indicates the compiler that the variable might change value unexpectatly for e.g. throug an Interrupt. 
 //this guarantees that the variable will always be loaded from memory when used
+volatile unsigned long time_10 = 0;
 volatile unsigned long time_100 = 0;
 volatile unsigned long sys_time = 0;
 unsigned long systime_time_indicator = 0;
@@ -261,6 +262,10 @@ int main(void)
 			
 			/*	TRANSMIT TO DEBUG END	*/			
 			
+		}
+		if((sys_time - time_10) >= 100){//10Hz/100ms loop
+			PORTG ^= (1<<PG3);
+			time_10 = sys_time;
 		}
 	}	
 }

@@ -244,7 +244,7 @@ void dsp_init()
 
 void selftest(){
 	
-	if (systime_selftest+selftest_time >= sys_time)
+	if (systime_selftest+selftest_time*2 >= sys_time)
 	{
 		string_to_digit(0,"      DIC V0.1      ",0,0);
 		string_to_digit(0,"  Software written  ",0,1);
@@ -252,12 +252,12 @@ void selftest(){
 		string_to_digit(0,"Baltic Racing Alumni",0,3);
 		dsp_write(0);	
 	}
-	else if (systime_selftest+selftest_time*3 >= sys_time)
+	else if (systime_selftest+selftest_time*4 >= sys_time)
 	{
-		string_to_digit(0,"Initializing Voodoo.",0,0);
-		string_to_digit(0," Charging Up Magic. ",0,1);
-		string_to_digit(0,"  Filling Up Smoke  ",0,2);
-		string_to_digit(0,"  Make 'em WICKED!  ",0,3);
+		string_to_digit(0,"   And fixed by     ",0,0);
+		string_to_digit(0,"      Deine Mudda   ",0,1);
+		string_to_digit(0,"--------------------",0,2);
+		string_to_digit(0,"  #MOSFET-Barbecue  ",0,3);
 		dsp_write(0);
 	}
 		
