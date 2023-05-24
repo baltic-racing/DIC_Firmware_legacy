@@ -16,3 +16,4 @@
 void CAN_recieve();
 void can_init_messages();
 void CAN_put_data();
+void toggle(void);

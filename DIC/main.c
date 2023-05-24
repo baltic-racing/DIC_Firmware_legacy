@@ -110,13 +110,6 @@ unsigned long sys_time_blink = 0;
 void LED_Blink(uint8_t Anzahl_Blinks, uint16_t Zeit_fuer_Blinken);
 void LED_Blink_CTRL();
 
-/*	TRANSMIT TO DEBUG START	*/
-
-struct CAN_MOB mob_to_transmit;
-uint8_t mob_0_data[8];
-
-/*	TRANSMIT TO DEBUG END	*/
-
 
 // MAIN FUNCTION
 int main(void)
@@ -129,23 +122,6 @@ int main(void)
 	dsp_init();
 	dsp_definechars();
 	can_cfg();
-	
-	/*	TRANSMIT TO DEBUG START	*/
-
-	mob_to_transmit.mob_id = 0x100;
-	mob_to_transmit.mob_idmask = 0;
-	mob_to_transmit.mob_number = 0;
-	
-	mob_0_data[0] = 0;
-	mob_0_data[1] = 0;
-	mob_0_data[2] = 1;
-	mob_0_data[3] = 0;
-	mob_0_data[4] = 0;
-	mob_0_data[5] = 0;
-	mob_0_data[6] = 0;
-	mob_0_data[7] = 0;
-
-	/*	TRANSMIT TO DEBUG END	*/
 	
 	dsp_clear();
 	sei();
@@ -253,19 +229,13 @@ int main(void)
 		if((sys_time - time_100) >= 10){//100Hz/10ms loop
 			CAN_recieve();
 			CAN_put_data();			
-			time_100 = sys_time;
-			
-			/*	TRANSMIT TO DEBUG START	*/
-			
-			can_tx(&mob_to_transmit, mob_0_data);
-			mob_0_data[0]++;
-			
-			/*	TRANSMIT TO DEBUG END	*/			
+			time_100 = sys_time;		
 			
 		}
 		if((sys_time - time_10) >= 100){//10Hz/100ms loop
 			PORTG ^= (1<<PG3);
 			time_10 = sys_time;
+			toggle();
 		}
 	}	
 }

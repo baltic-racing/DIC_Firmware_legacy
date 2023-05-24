@@ -57,8 +57,15 @@ uint16_t GPS_Speed = 0;
 
 extern LC_Active;
 
-struct CAN_MOB can_SWC_mob;
-	uint8_t SWC_databytes[8];	
+/*	TRANSMIT TO DEBUG START	*/
+
+struct CAN_MOB mob_to_transmit;
+uint8_t mob_0_data[8];
+
+/*	TRANSMIT TO DEBUG END	*/
+
+//struct CAN_MOB can_SWC_mob;
+	//uint8_t SWC_databytes[8];	
 	
 struct CAN_MOB can_Fusebox0_mob;
 	uint8_t Fusebox0_databytes[8];
@@ -155,7 +162,7 @@ void can_init_messages(){
 
 void CAN_recieve(){
 	
-	can_rx(&can_SWC_mob, SWC_databytes);
+	//can_rx(&can_SWC_mob, SWC_databytes);
 	can_rx(&can_Fusebox0_mob, Fusebox0_databytes);
 	can_rx(&can_Fusebox1_mob, Fusebox1_databytes);
 	can_rx(&can_SHR0_mob, SHR0_databytes);
@@ -176,8 +183,8 @@ void CAN_recieve(){
 void CAN_put_data(){
 		// Testdata comment when display is in car
 		
-		SWC_databytes[0] = 0;
-		SWC_databytes[1] = 1;
+		//SWC_databytes[0] = 0;
+		//SWC_databytes[1] = 1;
 /*
 		//APPS Values in 0,1%
 		SHR0_databytes[0] = 400;
@@ -240,10 +247,8 @@ void CAN_put_data(){
 		Logger0_databytes[0] = 42;
 */
 		
-		
-		
-	Rotary_Encoder_Right = SWC_databytes[0];
-	Rotary_Encoder_Left = SWC_databytes[1];
+	Rotary_Encoder_Right = 0;//SWC_databytes[0];
+	Rotary_Encoder_Left = 1;//SWC_databytes[1];
 	dsp_mde = Rotary_Encoder_Right%4;
 	BrakeBias = 0;
 
@@ -295,6 +300,11 @@ void CAN_put_data(){
 	GPS_Speed = Logger2_databytes[7] << 8 | Logger2_databytes[6];
 	LapNumber = Logger0_databytes[0];	
 	
-	DIC0_databytes[0] = LC_Active;
-	
+	//DIC0_databytes[0] = LC_Active;
+	DIC0_databytes[2] = 1;
+}
+
+void toggle(void)
+{
+	DIC0_databytes[2] ^= (1 << 0);
 }
