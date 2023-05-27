@@ -169,6 +169,19 @@ void CAN_recieve(){
 	can_rx(&can_AMS2_mob, AMS2_databytes);
 	can_rx(&can_AMS3_mob, AMS3_databytes);
 	
+	//	For Testing
+	
+	DIC0_databytes[0] = 0b10101010;
+	DIC0_databytes[1] = 0b01010101;
+	DIC0_databytes[2] = 0b11001100;
+	DIC0_databytes[3] = 0b00110011;
+	DIC0_databytes[4] = 0b11110000;
+	DIC0_databytes[5] = 0b00001111;
+	DIC0_databytes[6] = 0b11001111;
+	DIC0_databytes[7] = 0b00110000;
+	
+	//	For Testing
+	
 	can_tx(&can_DIC0_mob, DIC0_databytes);
 	
 }
