@@ -542,11 +542,11 @@ END GROUP
                 0x000004be      0x1b2 CAN_Data.o
                 0x000004be                can_init_messages
  .text.CAN_recieve
-                0x00000670       0xa8 CAN_Data.o
+                0x00000670       0x9c CAN_Data.o
                 0x00000670                CAN_recieve
  .text.CAN_put_data
-                0x00000718      0x48a CAN_Data.o
-                0x00000718                CAN_put_data
+                0x0000070c      0x496 CAN_Data.o
+                0x0000070c                CAN_put_data
  .text.calc_BB  0x00000ba2       0xfe display_data.o
                 0x00000ba2                calc_BB
  .text.string_to_digit

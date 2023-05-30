@@ -233,7 +233,7 @@ int main(void)
 			
 		}
 		if((sys_time - time_10) >= 100){//10Hz/100ms loop
-			PORTG ^= (1<<PG3);
+			PORTG ^= (1<<PG3);			
 			time_10 = sys_time;
 		}
 	}	

@@ -95,7 +95,7 @@ struct CAN_MOB can_AMS3_mob;
 
 void can_init_messages(){
 	
-	can_SWC_mob.mob_id = 0x800;
+	can_SWC_mob.mob_id = 0x750;
 	can_SWC_mob.mob_idmask = 0xffff;
 	can_SWC_mob.mob_number = 0;
 	
@@ -294,4 +294,5 @@ void CAN_put_data(){
 	LapNumber = Logger0_databytes[0];	
 	
 	DIC0_databytes[0] = LC_Active;
+	DIC0_databytes[7] ^= (1 << 0);
 }
