@@ -446,37 +446,52 @@ void dsp_arrayinit_static(void)
 	
 //DEBUG INTERFACE
 	//Names
-	dsp_data[1][0][0] = 'T'; 
-	dsp_data[1][0][1] = 'P';
-	dsp_data[1][0][2] = 'S';
-	dsp_data[1][0][3] = '1';
-	dsp_data[1][0][10] = '2';
+	dsp_data[1][0][0] = 'C'; 
+	dsp_data[1][0][1] = 'T';
+	dsp_data[1][0][2] = 'M';
+	dsp_data[1][0][3] = 'I';
+	dsp_data[1][0][4] = 'N';
 	
-	dsp_data[1][1][0] = 'A';
-	dsp_data[1][1][1] = 'P';
-	dsp_data[1][1][2] = 'S';
-	dsp_data[1][1][3] = '1';
-	dsp_data[1][1][10] = '2';
+	dsp_data[1][0][13] = 'M';
+	dsp_data[1][0][14] = 'A';
+	dsp_data[1][0][15] = 'X';
 	
-	dsp_data[1][2][0] = 'T';
+	dsp_data[1][1][0] = 'C';
+	dsp_data[1][1][1] = 'V';
+	dsp_data[1][1][2] = 'M';
+	dsp_data[1][1][3] = 'I';
+	dsp_data[1][1][4] = 'N';
+	
+	dsp_data[1][1][13] = 'M';
+	dsp_data[1][1][14] = 'A';
+	dsp_data[1][1][15] = 'X';
+	
+	dsp_data[1][2][0] = 'A';
 	dsp_data[1][2][1] = 'P';
-	dsp_data[1][2][2] = 'S';
-	dsp_data[1][2][3] = 'E';	
+	dsp_data[1][2][2] = 'P';
+	dsp_data[1][2][3] = 'S';
+	dsp_data[1][2][4] = '1';
+	
+	dsp_data[1][2][13] = '2';	
 	
 	dsp_data[1][3][0] = 'B';
 	dsp_data[1][3][1] = 'P';
 	dsp_data[1][3][2] = 'F';
-	dsp_data[1][3][8] = 'R';	
-	//Units
-	dsp_data[1][0][8] = '%';
-	dsp_data[1][1][8] = '%';
-	dsp_data[1][2][8] = '%';		
 	
-	dsp_data[1][0][15] = '%';
-	dsp_data[1][1][15] = '%';	
+	dsp_data[1][3][13] = 'R';
 	
-	dsp_data[1][3][6] = 'B';
-	dsp_data[1][3][12] = 'B';	
+	//Units		
+	dsp_data[1][0][10] = 'C';
+	dsp_data[1][0][20] = 'C';
+
+	dsp_data[1][1][10] = 'V';
+	dsp_data[1][1][20] = 'V';
+	
+	dsp_data[1][2][10] = '%';
+	dsp_data[1][2][20] = '%';	
+	
+	dsp_data[1][3][10] = 'B';
+	dsp_data[1][3][20] = 'B';	
 	
 //Timing screen
 

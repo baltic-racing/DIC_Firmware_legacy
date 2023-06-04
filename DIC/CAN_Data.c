@@ -35,6 +35,10 @@ uint8_t AMS_ERR = 0;
 uint16_t ERR_info = 0;
 uint8_t IMD_ERR = 0;
 uint8_t TS_RDY = 0;
+uint16_t CV_min = 0;
+uint16_t CV_max = 0;
+uint16_t CT_min = 0;
+uint16_t CT_max = 0;
 
 uint8_t LapNumber = 0;
 uint32_t Laptime = 0;
@@ -261,6 +265,10 @@ void CAN_put_data(){
 	IMD_ERR = AMS0_databytes[4];
 	TSVoltage = (AMS1_databytes[1] << 8 | AMS1_databytes[0])/6;
 	SOC = (AMS1_databytes[5] << 8 | AMS1_databytes[4]);
+	CV_min = (AMS2_databytes[1] << 8 | AMS2_databytes[0]);
+	CV_max = (AMS2_databytes[3] << 8 | AMS2_databytes[2]);
+	CT_min = (AMS2_databytes[5] << 8 | AMS2_databytes[4]);
+	CT_max = (AMS2_databytes[7] << 8 | AMS2_databytes[6]);
 	AccumulatorTemperature = (AMS2_databytes[7] << 8 | AMS2_databytes[6]);
 	TS_RDY = AMS3_databytes[0];
 

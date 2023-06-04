@@ -94,6 +94,10 @@ extern uint16_t TSVoltage;
 extern uint16_t AccumulatorTemperature;
 extern uint16_t SOC;
 extern uint16_t LVSVoltage;
+extern uint16_t CV_min;
+extern uint16_t CV_max;
+extern uint16_t CT_min;
+extern uint16_t CT_max;
 
 extern char error_indicator[];
 extern systime_selftest;
@@ -143,6 +147,8 @@ int main(void)
 
 		if(update_data>=33){ //refresh rate for display about 30Hz
 			update_data = 0;
+			
+//-------------------------- Home Screen ------------------------------			
 			
 			if (dsp_mde == 0){ //DiSPlay Mode 0 = Home
 				num_to_digit(0,TSVoltage,0,3,5,0);
@@ -196,18 +202,21 @@ int main(void)
 			}
 			
 			
-			
+//-------------------------------- debug screen ---------------------------------------			
 			
 			if (dsp_mde == 1){ //debug screen
-				num_to_digit(1,APPS1,0,3,5,1);
-				num_to_digit(1,APPS2,0,3,12,1);
-
-				num_to_digit(1,BPF,0,2,4,3);
-				num_to_digit(1,BPR,0,2,10,3);				
+				num_to_digit(1,APPS1,0,3,5,2);
+				num_to_digit(1,APPS2,0,3,12,2);
+				num_to_digit(1,CT_min,0,2,7,0)
+				num_to_digit(1,CT_max,0,2,17,0)
+				num_to_digit(1,CV_min,1,2,6,1)
+				num_to_digit(1,CV_max,1,2,16,1)
+				num_to_digit(1,BPF,0,2,7,3);
+				num_to_digit(1,BPR,0,2,17,3);				
 			}
 			
 			
-			
+//-------------------------------- times screen ---------------------------------------				
 			
 			
 			if (dsp_mde == 2){ //Times screen
