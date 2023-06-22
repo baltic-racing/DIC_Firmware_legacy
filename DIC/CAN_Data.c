@@ -107,9 +107,9 @@ void can_init_messages(){
 	can_Fusebox0_mob.mob_idmask = 0xffff;
 	can_Fusebox0_mob.mob_number = 1;
 	
-	can_Fusebox0_mob.mob_id = 0x601;
-	can_Fusebox0_mob.mob_idmask = 0xffff;
-	can_Fusebox0_mob.mob_number = 2;
+	can_Fusebox1_mob.mob_id = 0x601;
+	can_Fusebox1_mob.mob_idmask = 0xffff;
+	can_Fusebox1_mob.mob_number = 2;
 	
 	can_SHR0_mob.mob_id = 0x400;
 	can_SHR0_mob.mob_idmask = 0xffff;
@@ -301,6 +301,6 @@ void CAN_put_data(){
 	GPS_Speed = Logger2_databytes[7] << 8 | Logger2_databytes[6];
 	LapNumber = Logger0_databytes[0];	
 	
-	DIC0_databytes[0] = LC_Active;
-	DIC0_databytes[7] ^= (1 << 0);
+	DIC0_databytes[0] = (~PINA & (1 << PA0));
+	DIC0_databytes[1] = (~PINA & (1 << PA1));
 }
