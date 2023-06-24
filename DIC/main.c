@@ -207,10 +207,10 @@ int main(void)
 			if (dsp_mde == 1){ //debug screen
 				num_to_digit(1,APPS1,0,3,5,2);
 				num_to_digit(1,APPS2,0,3,12,2);
-				num_to_digit(1,CT_min,0,2,7,0)
-				num_to_digit(1,CT_max,0,2,17,0)
-				num_to_digit(1,CV_min,1,2,6,1)
-				num_to_digit(1,CV_max,1,2,16,1)
+				num_to_digit(1,CT_min,0,2,7,0);
+				num_to_digit(1,CT_max,0,2,17,0);
+				num_to_digit(1,CV_min,1,2,6,1);
+				num_to_digit(1,CV_max,1,2,16,1);
 				num_to_digit(1,BPF,0,2,7,3);
 				num_to_digit(1,BPR,0,2,17,3);				
 			}
@@ -242,7 +242,7 @@ int main(void)
 			
 		}
 		if((sys_time - time_10) >= 100){//10Hz/100ms loop
-			PORTG ^= (1<<PG3);			
+			PORTG ^= (1<<PG3);	
 			time_10 = sys_time;
 		}
 	}	
