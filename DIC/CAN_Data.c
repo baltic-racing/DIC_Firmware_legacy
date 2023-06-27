@@ -173,7 +173,7 @@ void CAN_recieve(){
 	can_rx(&can_AMS2_mob, AMS2_databytes);
 	can_rx(&can_AMS3_mob, AMS3_databytes);
 	
-	//can_tx(&can_DIC0_mob, DIC0_databytes);
+	can_tx(&can_DIC0_mob, DIC0_databytes);
 	
 }
 
