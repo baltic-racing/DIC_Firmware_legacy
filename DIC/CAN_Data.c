@@ -133,27 +133,27 @@ void can_init_messages(){
 		
 	can_Logger2_mob.mob_id = 0x797;
 	can_Logger2_mob.mob_idmask = 0xffff;
-	can_Logger2_mob.mob_number = 10;
+	can_Logger2_mob.mob_number = 8;
 	
 	can_DIC0_mob.mob_id = 0x500;
 	can_DIC0_mob.mob_idmask = 0xffff;
-	can_DIC0_mob.mob_number = 11;
+	can_DIC0_mob.mob_number = 9;
 	
 	can_AMS0_mob.mob_id = 0x200;
 	can_AMS0_mob.mob_idmask = 0xffff;
-	can_AMS0_mob.mob_number = 12;
+	can_AMS0_mob.mob_number = 10;
 	
 	can_AMS1_mob.mob_id = 0x201;
 	can_AMS1_mob.mob_idmask = 0xffff;
-	can_AMS1_mob.mob_number = 13;
+	can_AMS1_mob.mob_number = 11;
 	
 	can_AMS2_mob.mob_id = 0x202;
 	can_AMS2_mob.mob_idmask = 0xffff;
-	can_AMS2_mob.mob_number = 14;
+	can_AMS2_mob.mob_number = 12;
 	
 	can_AMS3_mob.mob_id = 0x203;
 	can_AMS3_mob.mob_idmask = 0xffff;
-	can_AMS3_mob.mob_number = 15;	
+	can_AMS3_mob.mob_number = 13;	
 	
 }	
 
@@ -270,6 +270,7 @@ void CAN_put_data(){
 	CT_min = (AMS2_databytes[5] << 8 | AMS2_databytes[4]);
 	CT_max = (AMS2_databytes[7] << 8 | AMS2_databytes[6]);
 	AccumulatorTemperature = (AMS2_databytes[7] << 8 | AMS2_databytes[6]);
+	
 	TS_RDY = AMS3_databytes[0];
 
 	//For some weird reason the length of the variable that gets shifted seems to matter, atleast in this usecase, with for e.g BPF etc it works fine which may be becouse we are actually only transmitting an 8 bit value
@@ -302,5 +303,5 @@ void CAN_put_data(){
 	LapNumber = Logger0_databytes[0];	
 	
 	DIC0_databytes[0] = (~PINA & (1 << PA0));
-	DIC0_databytes[1] = (~PINA & (1 << PA1));
+	DIC0_databytes[1] = ((~PINA & (1 << PA1)) >> PA1);
 }

@@ -21,6 +21,8 @@ void led_top_right_bar(uint16_t max_value_r, uint16_t min_value_r, uint16_t curr
 void led_left_top_bar_select(uint8_t select_l);
 void led_right_top_bar_select(uint8_t select_r);
 
+void bms_error(uint8_t error);
+
 void selftest();
 //void shutdownLED();
 

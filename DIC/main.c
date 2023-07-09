@@ -102,6 +102,8 @@ extern uint16_t CT_max;
 extern char error_indicator[];
 extern systime_selftest;
 
+extern uint8_t TS_RDY;
+
 int32_t difftime = 0;
 int32_t difftime_old = 0;
 
@@ -237,7 +239,20 @@ int main(void)
 		}	
 		if((sys_time - time_100) >= 10){//100Hz/10ms loop
 			CAN_recieve();
-			CAN_put_data();			
+			CAN_put_data();
+			
+			//	TESTING PROCEDURE	START
+			
+			/*
+				Testing CAN Communication with RTOS of BMS_Firmware
+				Sending TS_RDY bit should turn on ams error indicators.
+				I know its not meant for...
+			*/
+			
+			bms_error(TS_RDY);
+			
+			//	TESTING PROCEDURE	END
+			
 			time_100 = sys_time;		
 			
 		}

@@ -275,3 +275,12 @@ void selftest(){
 		LEDS_on++;
  	}
 }
+
+void bms_error(uint8_t error)
+{
+	switch (error)
+	{
+		case 0: {PORTD &= (0b01100000); break;}	//Every 1 in this number represents an Pin which is connected to the bottom LED bar, 0 = on
+		case 1: {PORTD |= (0b10011111); break;}	//Every 1 in this number represents an Pin which is connected to the bottom LED bar, 1 = on
+	}
+}
