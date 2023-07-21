@@ -25,28 +25,33 @@ void error_handling(){
 	
 	string_to_digit(0,"          ",0,3); //clear the error message space
 	
-	if ((CLT >= CLT_max) & (rpm >= 300)){
+	if ((CLT >= CLT_max) & (rpm >= 300))
+	{
 		string_to_digit(0,"CLT!",written_msg,3);
 		written_msg+=strlen("CLT!");
-		
-	}if((OILP <= OILP_min) & (rpm >= 300 & written_msg + strlen("OILP!") <= 10)){
-		string_to_digit(0,"OILP!",written_msg,3);
-		written_msg+=strlen("OILP!");	
-		
-	}if((CLT >= CLT_min) & (rpm >= 300) & written_msg + strlen("CLT!") <= 10){
-		string_to_digit(0,"CLT!",written_msg,3);
-		written_msg+=strlen("CLT!");			
-	
-	}if((ECUVoltage >= Volt_max) & written_msg + strlen("VOLT!") <= 10){
-		string_to_digit(0,"VOLT!",written_msg,3);
-		written_msg+=strlen("VOLT!");
-		
-	}if((ECUVoltage <= Volt_min) & written_msg + strlen("VOLT!") <= 10){
-		string_to_digit(0,"VOLT!",written_msg,3);
-		written_msg+=strlen("VOLT!");
-	
 	}
-	if(written_msg == 0){
+	if((OILP <= OILP_min) & (rpm >= 300 & written_msg + strlen("OILP!") <= 10))
+	{
+	string_to_digit(0,"OILP!",written_msg,3);
+	written_msg+=strlen("OILP!");	
+	}
+	if((CLT <= CLT_min) & (rpm >= 300) & written_msg + strlen("CLT!") <= 10)
+	{
+	string_to_digit(0,"CLT!",written_msg,3);
+	written_msg+=strlen("CLT!");	
+	}
+	if((ECUVoltage >= Volt_max) & written_msg + strlen("VOLT!") <= 10)
+	{
+	string_to_digit(0,"VOLT!",written_msg,3);
+	written_msg+=strlen("VOLT!");
+	}
+	if((ECUVoltage <= Volt_min) & written_msg + strlen("VOLT!") <= 10)
+	{
+		string_to_digit(0,"VOLT!",written_msg,3);
+		written_msg+=strlen("VOLT!");
+	}
+	if(written_msg == 0)
+	{
 		string_to_digit(0,"OK",0,3);
 	}
 }
