@@ -69,54 +69,49 @@ void shutdownLED(void)
 {
 	//Shutdown_byte = ~(PORTD & (1<<PD4)) | ~(PORTD & (1<<PD7)) << 1 | ~(PORTD & (1<<PD0)) << 2 | ~(PORTD & (1<<PD2)) << 3 | ~(PORTD & (1<<PD3)) << 4 | ~(PORTD & (1<<PD1)) << 5;
 	
-	//BSPD
-	if((1<<PD4)!=(PIND & (1<<PD4)))
-	{
-		PORTG |= (1<<PG1);
-	}
-	else{
-		PORTG &= ~(1<<PG1);
-	}
+	//Clear LEDs
+	PORTF = 0;
+	PORTG = 0;
+	
+	//BSPD //PD4
+	/*
+	if((1<<PD4)!=(PIND & (1<<PD4))) {PORTG |= (1<<PG1);}
+	else {PORTG &= ~(1<<PG1);}
+	*/
 
-	//Dashboard
-	if((1<<PD7)!=(PIND & (1<<PD7)))
-	{
-		PORTG |= (1<<PG0);
-	}else{
-		PORTG &= ~(1<<PG0);
-	}
+	//Dashboard //PD7
+	/*
+	if((1<<PD7)!=(PIND & (1<<PD7))) {PORTG |= (1<<PG0);}
+	else {PORTG &= ~(1<<PG0);}
+	*/
 
-	//SdB Left
-	if((1<<PD0)!=(PIND & (1<<PD0)))
-	{
-		PORTF |= (1<<PF3);
-	}else{
-		PORTF &= ~(1<<PF3);
-	}
+	//SdB Left PD0
+	/*
+	if((1<<PD0)!=(PIND & (1<<PD0))) {PORTF |= (1<<PF3);}
+	else {PORTF &= ~(1<<PF3);}
+	*/
 
-	////SdB Right
-	if((1<<PD2)!=(PIND & (1<<PD2)))
-	{
-		PORTF |= (1<<PF2);
-	}else{
-		PORTF &= ~(1<<PF2);
-	}
+	////SdB Right //PD2
+	/*
+	if((1<<PD2)!=(PIND & (1<<PD2))) {PORTF |= (1<<PF2);}
+	else {PORTF &= ~(1<<PF2);}
+	*/
 
-	//BOTS
-	if((1<<PD3)!=(PIND & (1<<PD3)))
-	{
-		PORTF |= (1<<PF1);
-	}else{
-		PORTF &= ~(1<<PF1);
-	}
+	//BOTS //PD3
+	/*
+	if((1<<PD3)!=(PIND & (1<<PD3))) {PORTF |= (1<<PF1);}
+	else {PORTF &= ~(1<<PF1);}
+	*/
 
-	//Inertia
-	if((1<<PD1)!=(PIND & (1<<PD1)))
-	{
-		PORTF |= (1<<PF0);
-	}else{
-		PORTF &= ~(1<<PF0);
-	}
+	//Inertia //PD1
+	/*
+	if((1<<PD1)!=(PIND & (1<<PD1))) {PORTF |= (1<<PF0);}
+	else {PORTF &= ~(1<<PF0);}
+	*/
+	
+	//Everything	
+	if((1<<PD1)!=(PIND & (1<<PD1))) {PORTF |= (1<<PF0) | (1<<PF1) | (1<<PF2) | (1<<PF3); PORTG |= (1<<PG0) | (1<<PG1);}
+	else {PORTF = 0; PORTG = 0;}
 }
 
 void RPM_LED_Blink(){
