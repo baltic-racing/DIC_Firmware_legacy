@@ -13,11 +13,20 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
+<<<<<<< Updated upstream
 //DEFINES
 #define rx_mobs 7
+=======
+#include "system_config.h"
+#include "display_functions.h"
+#include "display_data.h"
+#include "portextender.h"
+#include "adc_functions.h"
+>>>>>>> Stashed changes
 
 //VARIABLES
 
+<<<<<<< Updated upstream
 uint8_t can_data_bytes[rx_mobs][8];
 
 void port_config();
@@ -648,11 +657,26 @@ void dsp_initdsp()
 	
 }
 
+=======
+uint8_t dsp_mde = 0;
+extern uint8_t update_data;
+extern uint8_t draw_data;
+extern uint8_t dsp_data [4][4][20];
+uint8_t BPS =10;
+extern long systime_selftest;
+//Volatiles -> Volatile indicates the compiler that the variable might change value unexpectatly for e.g. throug an Interrupt. 
+//this guarantees that the variable will always be loaded from memory when used
+volatile unsigned long time_10 = 0;
+volatile unsigned long time_100 = 0;
+volatile unsigned long sys_time = 0;
+unsigned long systime_time_indicator = 0;
+>>>>>>> Stashed changes
 // MAIN FUNCTION
 
 int main(void)
 {
 	//Init and config part
+<<<<<<< Updated upstream
 	initPorts();
 	dsp_initdsp();
 	dsp_arrayinit();
@@ -660,10 +684,30 @@ int main(void)
 	timer_config();
 	can_cfg();
 	sei();
+=======
+	
+	port_config();
+	sys_timer_config();
+	dsp_init();
+	dsp_definechars();
+	dsp_clear();
+	sei();
+	adc_config();
+	systime_selftest = sys_time;
+	
+	while (systime_selftest+selftest_time*4 >= sys_time)
+	{
+		selftest();
+	}
+
+	dsp_clear();
+	dsp_arrayinit_static();
+>>>>>>> Stashed changes
 
 	//Loop
 	while(1){
 
+<<<<<<< Updated upstream
 		if(update_data>=44){
 			update_data = 0;
 			can_data_management();
@@ -774,4 +818,32 @@ void can_data_management(void){
 	can_get_msg(6);
 
 
+=======
+		if(update_data>=5){ //refresh rate for display about 10Hz
+			update_data = 0;
+			
+//-------------------------- Home Screen ------------------------------			
+			
+		if(draw_data){ //1000Hz/1ms loop
+			dsp_write(dsp_mde);
+			draw_data = 0;
+			adc_start_conversion();
+			
+		}	
+		if((sys_time - time_100) >= 10){//100Hz/10ms loop
+			uint16_t adc1 = adc_get(0);
+			
+			uint16_t BPS = ((adc1*100)/1024);
+			num_to_digit(0,BPS,0,4,4,2);
+			num_to_digit(0,adc_get(0),0,4,4,1);
+			time_100 = sys_time;		
+			
+		}
+		if((sys_time - time_10) >= 100){//10Hz/100ms loop
+			PORTG ^= (1<<PG3);	
+			time_10 = sys_time;
+		}
+	}	
+}
+>>>>>>> Stashed changes
 }

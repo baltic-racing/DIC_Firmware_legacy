@@ -28,6 +28,7 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
+<<<<<<< Updated upstream
         <options />
         <configurations />
         <files />
@@ -37,6 +38,17 @@
           <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
         </dependencies>
       </framework-data>
+=======
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.44.1" />
+  </dependencies>
+</framework-data>
+>>>>>>> Stashed changes
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
     <avrtoolserialnumber>J41800073154</avrtoolserialnumber>
@@ -138,6 +150,27 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
+=======
+    <Compile Include="adc_functions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc_functions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="display_data.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="display_data.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="display_functions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="display_functions.h">
+      <SubType>compile</SubType>
+    </Compile>
+>>>>>>> Stashed changes
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>

@@ -37,7 +37,16 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+<<<<<<< Updated upstream
 ../main.c
+=======
+../adc_functions.c \
+../display_data.c \
+../display_functions.c \
+../main.c \
+../portextender.c \
+../system_config.c
+>>>>>>> Stashed changes
 
 
 PREPROCESSING_SRCS += 
@@ -47,6 +56,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+<<<<<<< Updated upstream
 main.o
 
 OBJS_AS_ARGS +=  \
@@ -57,6 +67,38 @@ main.d
 
 C_DEPS_AS_ARGS +=  \
 main.d
+=======
+adc_functions.o \
+display_data.o \
+display_functions.o \
+main.o \
+portextender.o \
+system_config.o
+
+OBJS_AS_ARGS +=  \
+adc_functions.o \
+display_data.o \
+display_functions.o \
+main.o \
+portextender.o \
+system_config.o
+
+C_DEPS +=  \
+adc_functions.d \
+display_data.d \
+display_functions.d \
+main.d \
+portextender.d \
+system_config.d
+
+C_DEPS_AS_ARGS +=  \
+adc_functions.d \
+display_data.d \
+display_functions.d \
+main.d \
+portextender.d \
+system_config.d
+>>>>>>> Stashed changes
 
 OUTPUT_FILE_PATH +=dic.elf
 
@@ -72,6 +114,30 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+<<<<<<< Updated upstream
+=======
+./adc_functions.o: .././adc_functions.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O0 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=at90can128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\at90can128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./display_data.o: .././display_data.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O0 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=at90can128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\at90can128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./display_functions.o: .././display_functions.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include"  -O0 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=at90can128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\at90can128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+>>>>>>> Stashed changes
 ./main.o: .././main.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
